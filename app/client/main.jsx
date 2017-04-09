@@ -13,7 +13,7 @@ class TestBox extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <TestBox />,
-  document.getElementById('content')
-);
+// ReactDOM.render(
+//   <TestBox />,
+//   document.getElementById('content')
+// );
