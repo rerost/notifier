@@ -18,5 +18,9 @@
     "react": "^15.5.3",
     "react-dom": "^15.5.3",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "octonode": "^0.7.10",
+    "twitter": "^1.7.0"
   }
 }
