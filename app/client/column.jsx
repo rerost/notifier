@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import ColumnItem from './column_item.jsx'
+import github from '../service/github'
 
 const style = {
   marginRight: "10px",

@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import github from '../service/github'
 
 class TestBox extends React.Component {
   constructor(props) {
@@ -12,7 +13,6 @@ class TestBox extends React.Component {
     );
   }
 }
-
 // ReactDOM.render(
 //   <TestBox />,
 //   document.getElementById('content')
