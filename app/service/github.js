@@ -5,7 +5,6 @@ export default class Github {
     this.client = github.client(token);
   }
 
-  //callback::[Object] -> Component
   getNotification() {
     return new Promise((resolve, reject) => {
       this.client.get('/notifications', {}, function (err, status, body, headers) {
