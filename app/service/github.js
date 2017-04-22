@@ -53,10 +53,10 @@ export default class Github {
           reject(err)
         }
         const result = {
-          user_id:       1,
-          content_id:    2,
-          user_name:     "rerost",
-          content:       "hogehoge",
+          user_id:       body.user.id,
+          content_id:    notification.id,
+          user_name:     body.user.login,
+          content:       body.body,
           reply_user:    2,
           reply_content: 1,
         }

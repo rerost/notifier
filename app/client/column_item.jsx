@@ -8,7 +8,7 @@ export default class ColumnItem extends React.Component {
   render() {
     return(
       <div style={style}>
-        <p>{this.props.item.user_name}</p>
+        <p>{this.props.item.content}</p>
       </div>
     );
   }
