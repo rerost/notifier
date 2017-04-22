@@ -18,17 +18,17 @@ const title_style = {
 export default class Column extends React.Component {
   constructor(props) {
     super(props)
-    this.github = new Github("cd853010e6f5c47f79e7a00d43cb2268c491a56b")
-    this.github.getNotification().then(this.githubCallback.bind(this), this.failed)
+    this.github = new Github("1cf90b9378130ce1b47d753dfc51422a1fef5e02")
+    //this.github.getNotification(this.state.items)//.then(this.githubCallback.bind(this), this.failed)
     this.state = {
       items: []
     }
   }
   componentDidMount() {
-    this.github.getNotification().then(this.githubCallback.bind(this), this.failed)
+    this.github.getNotification().then((items) => items.map((item) => item.then(this.callback.bind(this), this.failed)))
   }
-  githubCallback(body) {
-    this.setState({ items: body.map((item) => <ColumnItem key={item.content_id} item={item} />) })
+  callback(item) {
+    this.setState({ items: [<ColumnItem key={item.content_id} item={item} />, ...this.state.items] })
   }
   //test function
   failed(err) {
