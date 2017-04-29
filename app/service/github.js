@@ -42,6 +42,7 @@ export default class Github {
           reject(err)
         }
         const result = {
+          timestamp:     body.updated_at,
           user_id:       body.user.id,
           content_id:    notification.id,
           user_name:     body.user.login,
