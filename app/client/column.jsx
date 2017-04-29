@@ -18,7 +18,7 @@ const title_style = {
 export default class Column extends React.Component {
   constructor(props) {
     super(props)
-    this.github = new Github("1cf90b9378130ce1b47d753dfc51422a1fef5e02")
+    this.github = new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")
     //this.github.getNotification(this.state.items)//.then(this.githubCallback.bind(this), this.failed)
     this.state = {
       items: []
