@@ -1,19 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import github from '../service/github'
 
-class TestBox extends React.Component {
+import Table from './table.jsx'
+import NewButton from './new_button.jsx'
+
+class Main extends React.Component {
   constructor(props) {
     super(props);
   }
-
   render() {
     return(
-      <p>hoge</p>
+      <div>
+        <Table />
+        <NewButton />
+      </div>
     );
   }
 }
-// ReactDOM.render(
-//   <TestBox />,
-//   document.getElementById('content')
-// );
+ReactDOM.render(
+  <Main />,
+  document.getElementById('main')
+);
+console.log(document.getElementById('main'))

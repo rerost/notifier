@@ -20,6 +20,8 @@
     "vinyl-source-stream": "^1.1.0"
   },
   "dependencies": {
+    "events": "^1.1.1",
+    "jquery": "^3.2.1",
     "octonode": "^0.7.10",
     "twitter": "^1.7.0"
   }
