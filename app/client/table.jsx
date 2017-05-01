@@ -7,11 +7,16 @@ const style = {
 }
 
 export default class Table extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      columns: ["Github Notify"].map((n) => { return <Column key={n} name={n}></Column> }),
+    }
+  }
   render() {
-    const columns = ["Github Notify"].map((n) => { return <Column key={n} name={n}></Column> });
     return(
       <div style={style}>
-        {columns}
+        {this.state.columns}
       </div>
     );
   }
