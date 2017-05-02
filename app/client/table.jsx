@@ -20,6 +20,11 @@ export default class Table extends React.Component {
       const title = "new column:" + this.state.columns.length
       this.setState({columns: [...this.state.columns, <Column key={title} name={title}></Column>]})
     })
+
+    ev.on('column_item:click', (url) => {
+      const title = "test:" + this.state.columns.length
+      this.setState({columns: [...this.state.columns, <Column key={title} name={title} url={url}></Column>]})
+    })
   }
   render() {
     return(
