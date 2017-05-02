@@ -49,6 +49,7 @@ export default class Github {
           content:       body.body,
           reply_user:    2,
           reply_content: 1,
+          url:           body.issue_url + "/comments",
         }
         resolve(result)
       })
@@ -59,5 +60,30 @@ export default class Github {
     return this.getNotificationItems().then(
       (result) => result.map((promiseItem => promiseItem.then((i) => i, () => {})))
     )
+  }
+
+  getUrl(url) {
+    const getUrl = new Promise((resolve, reject) => {
+      this.client.get(url, {}, (err, status, body, headers) => {
+        resolve(body)
+      })
+    })
+    return new Promise((resolve, reject) => {
+      getUrl.then((body) => {
+        const items = body.map((item) => {
+          return {
+            timestamp:     item.updated_at,
+            user_id:       item.user.id,
+            content_id:    item.id,
+            user_name:     item.user.url,
+            content:       item.body,
+            reply_user:    2,
+            reply_content: 1,
+            url:           url,
+          }
+        })
+        resolve(items)
+      })
+    })
   }
 }
