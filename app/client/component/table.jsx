@@ -10,7 +10,6 @@ const style = {
 export default class Table extends React.Component {
   constructor(props) {
     super(props)
-    console.log(props)
     this.state = {
       columns: ["Github Notify"].map((n) => { return <Column key={n} name={n}></Column> }),
     }
