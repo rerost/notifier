@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import PropTypes from 'prop-types';
 
 import { ev } from '../service/event.js'
 
 const style = {
 }
 
-export default class ColumnItem extends React.Component {
+class ColumnItem extends React.Component {
+  constructor(props) {
+    console.log(props)
+    super(props)
+  }
   onClick(e) {
     ev.emit("column_item:click", this.props.item.url)
   }
@@ -18,3 +23,10 @@ export default class ColumnItem extends React.Component {
     );
   }
 }
+
+ColumnItem.propTypes = {
+  onClick: PropTypes.func,
+  item: PropTypes.object.isRequired,
+}
+
+export default ColumnItem
