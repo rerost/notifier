@@ -1,0 +1,13 @@
+.base {
+  margin-right: 10px;
+  margin-left:  10px;
+  width: 300px;
+}
+
+.name {
+  height: 50px;
+  background-color: #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 40px;
+}
