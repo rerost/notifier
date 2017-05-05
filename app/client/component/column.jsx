@@ -16,41 +16,12 @@ const title_style = {
 }
 
 export default class Column extends React.Component {
-  constructor(props) {
-    super(props)
-    this.github = new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")
-    this.state = {
-      items: [],
-      url: null,
-    }
-    console.log(props.url)
-    if(props.url){
-      this.state = Object.assign(this.state, {url: props.url})
-    }
-  }
-  componentDidMount() {
-    if (this.state.url) {
-      this.github.getUrl(this.state.url).then(this.callbackArray.bind(this), this.failed)
-    }
-    else {
-      this.github.getNotification().then((items) => items.map((item) => item.then(this.callback.bind(this), this.failed)))
-    }
-  }
-  callback(item) {
-    this.setState({ items: [<ColumnItem key={this.props.name + item.content_id} item={item} />, ...this.state.items], state: this.state.url })
-  }
-  callbackArray(items) {
-    items.map((item) => this.callback(item))
-  }
-  //test function
-  failed(err) {
-    console.log(err)
-  }
   render() {
+    console.log(this.props)
     return(
       <div style={style}>
         <p style={title_style}>{this.props.name}</p>
-        {this.state.items}
+        {this.props.items.map((item) => <ColumnItem key={this.props.url + item.id} item={item}/>) }
       </div>
     );
   }

@@ -10,10 +10,8 @@ const style = {
 export default class Table extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      columns: ["Github Notify"].map((n) => { return <Column key={n} name={n}></Column> }),
-    }
     this.events()
+    this.props.columns
   }
   events() {
     ev.on('new_button:click', (e) => {
@@ -27,9 +25,17 @@ export default class Table extends React.Component {
     })
   }
   render() {
+    const columns = Object.keys(this.props.columns).map((url) => {
+      return <Column
+        key={url}
+        url={url}
+        name={this.props.columns[url].name}
+        items={this.props.columns[url].items}
+      />
+    })
     return(
       <div style={style}>
-        {this.state.columns}
+        {columns}
       </div>
     );
   }

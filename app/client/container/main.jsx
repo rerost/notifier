@@ -7,27 +7,37 @@ import Table from '../component/table.jsx'
 import NewButton from '../component/new_button.jsx'
 
 import configureStore from './stores/main.js'
-import * as actions from './actions/main.js'
+import * as mainActions from './actions/main.js'
+import * as columnActions from './actions/column.js'
 
 const mapStateToProps = (state) => {
   return {
-    count: state.mainReducer.count
+    count: state.mainReducer.count,
+    columns: state.columnReducer,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onMainClick: () => {
-      dispatch(actions.mainClick())
+      dispatch(mainActions.mainClick())
+    },
+    load: (url) => {
+      console.log(url === "https://api.github.com/notifications")
+      dispatch(columnActions.fetchItems(url))
     }
   }
 }
 
 class Main extends React.Component {
+  constructor(props) {
+    super(props)
+    Object.keys(this.props.columns).map((url) => this.props.load(url))
+  }
   render() {
     return(
       <div onClick={this.props.onMainClick}>
-        <Table />
+        <Table columns={this.props.columns}/>
         <NewButton />
         <p>{this.props.count}</p>
       </div>
