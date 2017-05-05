@@ -23,8 +23,10 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(mainActions.mainClick())
     },
     load: (url) => {
-      console.log(url === "https://api.github.com/notifications")
       dispatch(columnActions.fetchItems(url))
+    },
+    addColumn: (url) => {
+      dispatch(columnActions.addColumn(url))
     }
   }
 }
@@ -37,7 +39,7 @@ class Main extends React.Component {
   render() {
     return(
       <div onClick={this.props.onMainClick}>
-        <Table columns={this.props.columns}/>
+        <Table columns={this.props.columns} addColumn={this.props.addColumn}/>
         <NewButton />
         <p>{this.props.count}</p>
       </div>

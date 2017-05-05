@@ -4,6 +4,7 @@ export const REQUEST_ITEMS  = "column/request_items"
 export const RECEIVE_ITEMS  = "column/receive_items"
 export const RECEIVE_ITEM   = "column/receive_item"
 export const SET_NAME       = "column/set_name"
+export const ADD_COLUMN     = "column/add_column"
 
 const requestItems = (url) => {
   return {
@@ -49,5 +50,17 @@ export const setName = (url, name) => {
     type: SET_NAME,
     url: url,
     name: name,
+  }
+}
+
+export const addColumn = (url) => {
+  return dispatch => {
+    dispatch(
+      {
+        type: ADD_COLUMN,
+        url: url,
+      }
+    )
+    dispatch(fetchItems(url))
   }
 }

@@ -47,6 +47,14 @@ const columnReducer = (state = {"https://api.github.com/notifications": {name: "
           name: action.name,
         }
       });
+    case columnActions.ADD_COLUMN:
+      return Object.assign({}, state, {
+        [action.url]: {
+          name: "Loading...",
+          items: {},
+          isFetching: false,
+        }
+      })
     default:
       return state
   }

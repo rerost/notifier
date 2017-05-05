@@ -74,6 +74,7 @@ export default class Github {
         const items = body.map((item) => {
           return {
             timestamp:     item.updated_at,
+            id:            item.id,
             user_id:       item.user.id,
             content_id:    item.id,
             user_name:     item.user.url,
