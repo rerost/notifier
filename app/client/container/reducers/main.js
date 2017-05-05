@@ -19,41 +19,39 @@ const columnReducer = (state = {"https://api.github.com/notifications": {name: "
   switch (action.type) {
     case columnActions.REQUEST_ITEMS:
       return Object.assign({}, state, {
-        [action.url]: {
+        [action.url]: Object.assign({}, state[action.url], {
           name: "Loading...",
           items: [],
           isFetching: true,
-        }
+        })
       });
     case columnActions.RECEIVE_ITEMS:
       return Object.assign({}, state, {
-        [action.url]: {
-          name: action.name, //仮ぎめ。手に入れた情報から名前を手に入れるようにする
+        [action.url]: Object.assign({}, state[action.url], {
           items: action.items,
           isFetching: false
-        }
+        })
       });
     case columnActions.RECEIVE_ITEM:
       return Object.assign({}, state, {
-        [action.url]: {
-          name: action.name, //仮ぎめ。手に入れた情報から名前を手に入れるようにする
+        [action.url]: Object.assign({}, state[action.url], {
           items: [action.item, ...state[action.url].items],
           isFetching: false
-        }
+        })
       })
     case columnActions.SET_NAME:
       return Object.assign({}, state, {
-        [action.url]: {
+        [action.url]: Object.assign({}, state[action.url], {
           name: action.name,
-        }
-      });
+        })
+      })
     case columnActions.ADD_COLUMN:
       return Object.assign({}, state, {
-        [action.url]: {
+        [action.url]: Object.assign({}, state[action.url], {
           name: "Loading...",
-          items: {},
+          items: [],
           isFetching: false,
-        }
+        })
       })
     default:
       return state
