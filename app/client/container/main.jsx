@@ -4,7 +4,6 @@ import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
 
 import Table from '../component/table.jsx'
-import NewButton from '../component/new_button.jsx'
 
 import configureStore from './stores/main.js'
 import * as mainActions from './actions/main.js'
@@ -40,8 +39,6 @@ class Main extends React.Component {
     return(
       <div onClick={this.props.onMainClick}>
         <Table columns={this.props.columns} addColumn={this.props.addColumn}/>
-        <NewButton />
-        <p>{this.props.count}</p>
       </div>
     );
   }
