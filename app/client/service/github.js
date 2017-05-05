@@ -43,6 +43,7 @@ export default class Github {
         }
         const result = {
           timestamp:     body.updated_at,
+          id:            body.id,
           user_id:       body.user.id,
           content_id:    notification.id,
           user_name:     body.user.login,
@@ -73,6 +74,7 @@ export default class Github {
         const items = body.map((item) => {
           return {
             timestamp:     item.updated_at,
+            id:            item.id,
             user_id:       item.user.id,
             content_id:    item.id,
             user_name:     item.user.url,
