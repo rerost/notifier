@@ -25,7 +25,15 @@ var config = {
         query: {
           plugins: ["transform-react-jsx"]
         }
-      }
+      },
+      {
+        test: /.s?css$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]--[local]--[hash:base64:8]',
+        ],
+        exclude: /node_modules/,
+      },
     ]
   },
   devtool: 'cheap-module-eval-source-map',
@@ -34,7 +42,7 @@ var config = {
   ],
   output: opt,
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', 'css'],
     mainFields: ['webpack', 'browser', 'web', 'browserify', ['jam', 'main'], 'main']
   },
   plugins: [
