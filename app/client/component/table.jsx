@@ -8,15 +8,6 @@ const style = {
 }
 
 export default class Table extends React.Component {
-  constructor(props) {
-    super(props)
-    this.events()
-  }
-  events() {
-    ev.on('column_item:click', (url) => {
-      this.props.addColumn(url)
-    })
-  }
   render() {
     const columns = Object.keys(this.props.columns).map((url) => {
       return <Column
@@ -24,6 +15,7 @@ export default class Table extends React.Component {
         url={url}
         name={this.props.columns[url].name}
         items={this.props.columns[url].items}
+        addColumn={this.props.addColumn}
       />
     })
     return(
