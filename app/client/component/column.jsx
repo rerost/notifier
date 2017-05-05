@@ -17,4 +17,4 @@ class Column extends React.Component {
   }
 }
 
-export default new CSSModules(Column, styles)
+export default CSSModules(Column, styles)
