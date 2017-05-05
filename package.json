@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "gulp browserify & electron ./app",
-    "build": "gulp browserify"
+    "build": "gulp browserify",
+    "webpack": "webpack"
   },
   "author": "",
   "license": "ISC",
