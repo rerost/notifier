@@ -10,8 +10,10 @@ const style = {
 }
 
 const title_style = {
-  backgroundColor: "#ddd",
   height: "50px",
+  backgroundColor: "#ddd",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
   fontSize: "40px",
 }
 
