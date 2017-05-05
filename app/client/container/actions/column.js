@@ -58,7 +58,7 @@ export const addColumn = (url) => {
       }
     )
     dispatch(fetchItems(url))
-    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url, "issue")
+    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url.replace("/comments", ""), "issue")
       .then((title) => dispatch(setName(url, title)))
   }
 }
