@@ -4,7 +4,7 @@ import ColumnItem from './column_item.jsx'
 import Github from '../service/github.js'
 import CSSModules from 'react-css-modules';
 
-import styles from './column.css'
+import styles from './column.scss'
 
 class Column extends React.Component {
   render() {
