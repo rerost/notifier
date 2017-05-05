@@ -28,7 +28,7 @@ const columnReducer = (state = {"https://api.github.com/notifications": {name: "
     case columnActions.RECEIVE_ITEMS:
       return Object.assign({}, state, {
         [action.url]: {
-          name: "Loaded urls", //仮ぎめ。手に入れた情報から名前を手に入れるようにする
+          name: action.name, //仮ぎめ。手に入れた情報から名前を手に入れるようにする
           items: action.items,
           isFetching: false
         }
@@ -36,7 +36,7 @@ const columnReducer = (state = {"https://api.github.com/notifications": {name: "
     case columnActions.RECEIVE_ITEM:
       return Object.assign({}, state, {
         [action.url]: {
-          name: "Loaded notification", //仮ぎめ。手に入れた情報から名前を手に入れるようにする
+          name: action.name, //仮ぎめ。手に入れた情報から名前を手に入れるようにする
           items: [action.item, ...state[action.url].items],
           isFetching: false
         }

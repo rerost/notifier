@@ -16,6 +16,7 @@ const requestItems = (url) => {
 const receiveItems = (url, items) => {
   return {
     type: RECEIVE_ITEMS,
+    name: url,  //need get issue title
     items: items,
     url: url,
     receivedAt: Date.now(),
@@ -25,6 +26,7 @@ const receiveItems = (url, items) => {
 const receiveItem = (url, item) => {
   return {
     type: RECEIVE_ITEM,
+    name: url,  //need get issue title
     item: item,
     url: url,
     receivedAt: Date.now(),
@@ -40,7 +42,7 @@ export const fetchItems = (url) => {
     }
     else {
       return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url)
-        .then(items => dispatch(receiveItems(url, items)))
+        .then((items) => dispatch(receiveItems(url, items)))
     }
   }
 }
