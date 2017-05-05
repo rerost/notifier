@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Column from './column.jsx'
-import { ev } from '../service/event.js'
 
 const style = {
   display: "flex",
