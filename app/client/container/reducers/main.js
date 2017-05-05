@@ -1,19 +1,6 @@
 import { combineReducers } from 'redux';
 
-import * as mainActions from '../actions/main.js'
 import * as columnActions from '../actions/column.js'
-
-const mainReducer = (state = {count: 0}, action) => {
-  switch (action.type) {
-    case mainActions.MAIN_CLICK:
-      console.log(state.count)
-      return Object.assign({}, state, {
-        count: state.count + 1,
-      });
-    default:
-      return state;
-  }
-}
 
 const columnReducer = (state = {"https://api.github.com/notifications": {name: "Loading...", items: [], isFetching: false}}, action) => {
   switch (action.type) {
@@ -59,6 +46,5 @@ const columnReducer = (state = {"https://api.github.com/notifications": {name: "
 }
 
 export const reducer = combineReducers({
-  mainReducer,
   columnReducer,
 })
