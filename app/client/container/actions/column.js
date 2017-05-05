@@ -36,14 +36,8 @@ const receiveItem = (url, item) => {
 export const fetchItems = (url) => {
   return dispatch => {
     dispatch(requestItems(url))
-    if (url === "https://api.github.com/notifications") {
-      return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getNotification()
-        .then((items) => items.map((item) => item.then((i) => dispatch(receiveItem(url, i)))))
-    }
-    else {
-      return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url)
-        .then((items) => dispatch(receiveItems(url, items)))
-    }
+    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url)
+      .then((items) => dispatch(receiveItems(url, items)))
   }
 }
 

@@ -69,6 +69,30 @@ export default class Github {
         resolve(body)
       })
     })
+    if (url === "https://api.github.com/notifications") {
+      return new Promise((resolve, reject) => {
+        getUrl.then((body) => {
+          Promise.all(body.map((notification) => {
+            return new Promise((res, rej) => {
+              this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
+                const item = {
+                  timestamp:     body.updated_at,
+                  id:            body.id,
+                  user_id:       body.user.id,
+                  content_id:    notification.id,
+                  user_name:     body.user.login,
+                  content:       body.body,
+                  reply_user:    2,
+                  reply_content: 1,
+                  url:           body.issue_url + "/comments",
+                }
+                res(item)
+              })
+            })
+          })).then(resolve)
+        })
+      })
+    }
     return new Promise((resolve, reject) => {
       getUrl.then((body) => {
         const items = body.map((item) => {
