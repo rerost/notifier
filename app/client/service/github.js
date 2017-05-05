@@ -63,53 +63,61 @@ export default class Github {
     )
   }
 
-  getUrl(url) {
+  getUrl(url, type) {
     const getUrl = new Promise((resolve, reject) => {
       this.client.get(url, {}, (err, status, body, headers) => {
         resolve(body)
       })
     })
-    if (url === "https://api.github.com/notifications") {
-      return new Promise((resolve, reject) => {
-        getUrl.then((body) => {
-          Promise.all(body.map((notification) => {
-            return new Promise((res, rej) => {
-              this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
-                const item = {
-                  timestamp:     body.updated_at,
-                  id:            body.id,
-                  user_id:       body.user.id,
-                  content_id:    notification.id,
-                  user_name:     body.user.login,
-                  content:       body.body,
-                  reply_user:    2,
-                  reply_content: 1,
-                  url:           body.issue_url + "/comments",
-                }
-                res(item)
+    switch (type) {
+      case "notification":
+        return new Promise((resolve, reject) => {
+          getUrl.then((body) => {
+            Promise.all(body.map((notification) => {
+              return new Promise((res, rej) => {
+                this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
+                  const item = {
+                    timestamp:     body.updated_at,
+                    id:            body.id,
+                    user_id:       body.user.id,
+                    content_id:    notification.id,
+                    user_name:     body.user.login,
+                    content:       body.body,
+                    reply_user:    2,
+                    reply_content: 1,
+                    url:           body.issue_url + "/comments",
+                  }
+                  res(item)
+                })
               })
+            })).then(resolve)
+          })
+        })
+      case "comments":
+        return new Promise((resolve, reject) => {
+          getUrl.then((body) => {
+            const items = body.map((item) => {
+              return {
+                timestamp:     item.updated_at,
+                id:            item.id,
+                user_id:       item.user.id,
+                content_id:    item.id,
+                user_name:     item.user.url,
+                content:       item.body,
+                reply_user:    2,
+                reply_content: 1,
+                url:           url,
+              }
             })
-          })).then(resolve)
+            resolve(items)
+          })
         })
-      })
+      case "issue":
+        return new Promise((resolve, reject) => {
+          getUrl.then((body) => {
+            resolve(body.title)
+          })
+        })
     }
-    return new Promise((resolve, reject) => {
-      getUrl.then((body) => {
-        const items = body.map((item) => {
-          return {
-            timestamp:     item.updated_at,
-            id:            item.id,
-            user_id:       item.user.id,
-            content_id:    item.id,
-            user_name:     item.user.url,
-            content:       item.body,
-            reply_user:    2,
-            reply_content: 1,
-            url:           url,
-          }
-        })
-        resolve(items)
-      })
-    })
   }
 }
