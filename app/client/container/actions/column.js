@@ -36,7 +36,7 @@ const receiveItem = (url, item) => {
 export const fetchItems = (url) => {
   return dispatch => {
     dispatch(requestItems(url))
-    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url)
+    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url, url === "https://api.github.com/notifications" ? "notification":"comments")
       .then((items) => dispatch(receiveItems(url, items)))
   }
 }
@@ -58,5 +58,7 @@ export const addColumn = (url) => {
       }
     )
     dispatch(fetchItems(url))
+    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url, "issue")
+      .then((title) => dispatch(setName(url, title)))
   }
 }
