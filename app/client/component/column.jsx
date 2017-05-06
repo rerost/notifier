@@ -14,7 +14,7 @@ class Column extends React.Component {
           <div styleName="name">
             {this.props.name}
           </div>
-          <div styleName="close-button">
+          <div styleName="close-button" onClick={() => this.props.deleteColumn(this.props.url)}>
             x
           </div>
         </div>

@@ -15,6 +15,7 @@ export default class Table extends React.Component {
         name={this.props.columns.get(url).get("name")}
         items={this.props.columns.get(url).get("items")}
         addColumn={this.props.addColumn}
+        deleteColumn={this.props.deleteColumn}
       />
     })
     return(
