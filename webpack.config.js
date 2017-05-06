@@ -3,6 +3,7 @@ var JsonpTemplatePlugin = webpack.JsonpTemplatePlugin
 var FunctionModulePlugin = require('webpack/lib/FunctionModulePlugin')
 var NodeTargetPlugin = require('webpack/lib/node/NodeTargetPlugin')
 var ExternalsPlugin = webpack.ExternalsPlugin
+var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 var opt = {
   filename: 'app/build/app.js',
@@ -27,10 +28,18 @@ var config = {
         }
       },
       {
-        test: /.s?css$/,
+        test: /\.css$/,
         loaders: [
           'style-loader',
           'css-loader?modules&importLoaders=1&localIdentName=[name]--[local]--[hash:base64:8]',
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.scss$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]--[local]--[hash:base64:8]!sass-loader',
         ],
         exclude: /node_modules/,
       },

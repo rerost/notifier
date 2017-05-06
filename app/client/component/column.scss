@@ -4,10 +4,19 @@
   width: 300px;
 }
 
-.name {
+.head {
   height: 50px;
+  display: flex;
+  align-items: center;
   background-color: #ddd;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-size: 40px;
+  .name {
+    width: 80%;
+    padding-right: 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 40px;
+  }
+  .close-button {
+    width: 10%;
+  }
 }
