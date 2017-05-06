@@ -64,7 +64,14 @@ const columnReducer = (state = initialState, action) => {
     case columnActions.DELETE_COLUMN:
       return state.update(
         "keys",
-        (value => value.forEach((v, i) => {if(v == action.url) v.splice(i, 1)}))
+        (value => {
+          value.forEach((v, i) => {
+            if(v == action.url) {
+              value.splice(i, 1)
+            }
+          })
+          return value
+        })
       ).delete(
         action.url
       )
