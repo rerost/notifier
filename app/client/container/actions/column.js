@@ -5,6 +5,7 @@ export const RECEIVE_ITEMS  = "column/receive_items"
 export const RECEIVE_ITEM   = "column/receive_item"
 export const SET_NAME       = "column/set_name"
 export const ADD_COLUMN     = "column/add_column"
+export const DELETE_COLUMN  = "column/delete_column"
 
 const requestItems = (url) => {
   return {
@@ -60,5 +61,12 @@ export const addColumn = (url) => {
     dispatch(fetchItems(url))
     new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url.replace("/comments", ""), "issue")
       .then((title) => dispatch(setName(url, title)))
+  }
+}
+
+export const deleteColumn = (url) => {
+  return {
+    type: DELETE_COLUMN,
+    url: url,
   }
 }
