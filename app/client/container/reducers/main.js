@@ -52,7 +52,7 @@ const columnReducer = (state = initialState, action) => {
     case columnActions.ADD_COLUMN:
       return state.update(
         "keys",
-        (value => [...value, action.url])
+        (value => value.includes(action.url) ? value : [...value, action.url])
       ).set(
         action.url,
         new Column({
