@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 class Main extends React.Component {
   constructor(props) {
     super(props)
-    Object.keys(this.props.columns).map((url) => this.props.load(url))
+    this.props.columns.get("keys").map((url) => this.props.load(url))
   }
   render() {
     return(
