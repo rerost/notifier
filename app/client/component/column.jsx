@@ -10,7 +10,14 @@ class Column extends React.Component {
   render() {
     return(
       <div styleName="base">
-        <p styleName="name">{this.props.name}</p>
+        <div styleName="head">
+          <div styleName="name">
+            {this.props.name}
+          </div>
+          <div styleName="close-button">
+            x
+          </div>
+        </div>
         {this.props.items.map((item) => <ColumnItem key={this.props.url + item.id} item={item} addColumn={this.props.addColumn}/>) }
       </div>
     );
