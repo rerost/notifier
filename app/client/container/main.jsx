@@ -36,7 +36,11 @@ class Main extends React.Component {
   render() {
     return(
       <div onClick={this.props.onMainClick}>
-        <Table columns={this.props.columns} addColumn={this.props.addColumn} deleteColumn={this.props.deleteColumn}/>
+        <Table
+          columns={this.props.columns}
+          addColumn={this.props.addColumn}
+          deleteColumn={this.props.deleteColumn}
+        />
       </div>
     );
   }
