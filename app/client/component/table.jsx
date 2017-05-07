@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import Column from './column.jsx'
 
 const style = {
-  display: "flex",
+  overflowX: "scroll",
+  whiteSpace: "nowrap",
 }
-
 export default class Table extends React.Component {
   render() {
     const columns = this.props.columns.get("keys").map((url) => {
