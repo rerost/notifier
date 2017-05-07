@@ -14,9 +14,15 @@ class Column extends React.Component {
           <div styleName="name">
             {this.props.name}
           </div>
-          <div styleName="close-button" onClick={() => this.props.deleteColumn(this.props.url)}>
-            x
-          </div>
+          {(() => {
+            if(!this.props.isMainColumn) {
+              return (
+                <div styleName="close-button" onClick={() => this.props.isMainColumn ? {} :this.props.deleteColumn(this.props.url)}>
+                  x
+                </div>
+              )
+            }
+          })()}
         </div>
         {this.props.items.map((item) => <ColumnItem key={this.props.url + item.id} item={item} addColumn={this.props.addColumn}/>) }
       </div>

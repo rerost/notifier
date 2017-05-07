@@ -11,7 +11,8 @@ const initialState = Map({
   "https://api.github.com/notifications": new Column({
     name: "Loading...",
     items: [],
-    isFetching: false
+    isFetching: false,
+    isMainColumn: true,
   })
 })
 
@@ -57,6 +58,7 @@ const columnReducer = (state = initialState, action) => {
           name: "Loading...",
           items: [],
           isFetching: false,
+          isMainColumn: false,
         })
       )
     case columnActions.DELETE_COLUMN:
