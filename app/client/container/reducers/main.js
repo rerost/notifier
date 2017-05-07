@@ -21,7 +21,6 @@ const columnReducer = (state = initialState, action) => {
       return state.update(
         action.url,
         (value => value.update({
-          name: "Loading...",
           isFetching: true,
         }))
       );
@@ -29,7 +28,7 @@ const columnReducer = (state = initialState, action) => {
       return state.update(
         action.url,
         (value => value.update({
-          items: [...action.items, ...value.items],
+          items: [...action.items],
           isFetching: false
         }))
       )
