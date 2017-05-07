@@ -43,7 +43,7 @@ export default class Github {
   }
 
   // "2017-04-29T18:27:46Z"
-  convertToUnixtime(github_time) {
+  convertToDate(github_time) {
     const GITHUB_TIME_REGEX = /^(\d*)-(\d*)-(\d*)T(\d*):(\d*):(\d*)/
     const result = GITHUB_TIME_REGEX.exec(github_time)
     if (result == null) {
@@ -55,6 +55,10 @@ export default class Github {
     //Mapping [year, month, day, hour, minute, second]
     const date = result.slice(1,6).map(sn => Number(sn))
     return new Date(...date)
+  }
+
+  convertToGithubTime(unix_time) {
+    return unix_time.getYear() + "-" + unix_time.getMonth() + "-" + unix_time.getDate() + "T" + unix_time.getHours() + ":" + unix_time.getMinutes() + ":" + unix_time.getSeconds() + "Z"
   }
 
   getUrl(url) {
@@ -72,7 +76,7 @@ export default class Github {
               return new Promise((res, rej) => {
                 this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
                   const item = {
-                    timestamp:     this.convertToUnixtime(body.updated_at),
+                    timestamp:     this.convertToDate(body.updated_at),
                     id:            body.id,
                     user_id:       body.user.id,
                     content_id:    notification.id,
@@ -93,7 +97,7 @@ export default class Github {
           getUrl.then((body) => {
             const items = body.map((item) => {
               return {
-                timestamp:     this.convertToUnixtime(item.updated_at),
+                timestamp:     this.convertToDate(item.updated_at),
                 id:            item.id,
                 user_id:       item.user.id,
                 content_id:    item.id,
