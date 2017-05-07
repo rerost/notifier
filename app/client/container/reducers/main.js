@@ -26,10 +26,19 @@ const columnReducer = (state = initialState, action) => {
         }))
       );
     case columnActions.RECEIVE_ITEMS:
+      const new_items = [
+        ...state.get(action.url).get("items").filter(item => !(action.items.map(item => item.key).includes(item.key))),
+        ...action.items
+      ].sort((item1, item2) => {
+        const timestamp1 = item1.timestamp
+        const timestamp2 = item2.timestamp
+
+        return timestamp1 - timestamp2 // [5/1,5/2] => [5/2, 5/1]
+      })
       return state.update(
         action.url,
         (value => value.update({
-          items: [...action.items],
+          items: new_items,
           isFetching: false
         }))
       )
