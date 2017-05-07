@@ -33,7 +33,7 @@ const columnReducer = (state = initialState, action) => {
         const timestamp1 = item1.timestamp
         const timestamp2 = item2.timestamp
 
-        return timestamp1 - timestamp2 // [5/1,5/2] => [5/2, 5/1]
+        return timestamp2 - timestamp1 // [5/1,5/2] => [5/2, 5/1]
       })
       return state.update(
         action.url,
