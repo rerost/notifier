@@ -24,7 +24,9 @@ class Column extends React.Component {
             }
           })()}
         </div>
-        {this.props.items.map((item) => <ColumnItem key={this.props.url + item.id} item={item} addColumn={this.props.addColumn}/>) }
+        <div styleName="body">
+          {this.props.items.map((item) => <ColumnItem key={this.props.url + item.id} item={item} addColumn={this.props.addColumn}/>) }
+        </div>
       </div>
     );
   }
