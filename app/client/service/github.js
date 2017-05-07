@@ -63,14 +63,43 @@ export default class Github {
     )
   }
 
-  getUrl(url, type) {
+  getUrlType(url) {
+    const truncted_url = url.replace(/^https:\/\/api.github.com\//, "")
+    const regex_and_return = [
+      {
+        regex: /^notifications/,
+        type:  "notifications",
+      },
+      {
+        regex: /issues\/\d*$/,
+        type:  "issue",
+      },
+      {
+        regex: /issues\/\d*\/comments$/,
+        type:  "comments"
+      },
+    ]
+
+    let matched_type = ""
+
+    regex_and_return.forEach((elem) => {
+      if (elem.regex.test(truncted_url)) {
+        matched_type = elem.type
+      }
+    })
+
+    return matched_type
+  }
+
+  getUrl(url) {
     const getUrl = new Promise((resolve, reject) => {
       this.client.get(url, {}, (err, status, body, headers) => {
         resolve(body)
       })
     })
-    switch (type) {
-      case "notification":
+    const url_type = this.getUrlType(url)
+    switch (url_type) {
+      case "notifications":
         return new Promise((resolve, reject) => {
           getUrl.then((body) => {
             Promise.all(body.map((notification) => {
