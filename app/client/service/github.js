@@ -14,63 +14,43 @@ export default class Github {
     this.client = github.client(token);
   }
 
-  getNotificationList() {
-    return new Promise((resolve, reject) => {
-      this.client.me().notifications({}, (a, body, b) => {
-        console.log(body)
-        resolve(body)
-      })
-    })
-  }
-
-  //[Promise]
-  getNotificationItems() {
-    return this.getNotificationList().then(
-      (body) => {
-        return body.map((notification) => this.convertToItem(notification))
+  getUrlType(url) {
+    const truncted_url = url.replace(/^https:\/\/api.github.com\//, "")
+    const regex_and_return = [
+      {
+        regex: /^notifications/,
+        type:  "notifications",
       },
-      () => {
-        return undefined
+      {
+        regex: /issues\/\d*$/,
+        type:  "issue",
+      },
+      {
+        regex: /issues\/\d*\/comments$/,
+        type:  "comments"
+      },
+    ]
+
+    let matched_type = ""
+
+    regex_and_return.forEach((elem) => {
+      if (elem.regex.test(truncted_url)) {
+        matched_type = elem.type
       }
-    )
-  }
-
-  convertToItem(notification) {
-    return new Promise((resolve, reject) => {
-      this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
-        if(err) {
-          reject(err)
-        }
-        const result = {
-          timestamp:     body.updated_at,
-          id:            body.id,
-          user_id:       body.user.id,
-          content_id:    notification.id,
-          user_name:     body.user.login,
-          content:       body.body,
-          reply_user:    2,
-          reply_content: 1,
-          url:           body.issue_url + "/comments",
-        }
-        resolve(result)
-      })
     })
+
+    return matched_type
   }
 
-  getNotification() {
-    return this.getNotificationItems().then(
-      (result) => result.map((promiseItem => promiseItem.then((i) => i, () => {})))
-    )
-  }
-
-  getUrl(url, type) {
+  getUrl(url) {
     const getUrl = new Promise((resolve, reject) => {
       this.client.get(url, {}, (err, status, body, headers) => {
         resolve(body)
       })
     })
-    switch (type) {
-      case "notification":
+    const url_type = this.getUrlType(url)
+    switch (url_type) {
+      case "notifications":
         return new Promise((resolve, reject) => {
           getUrl.then((body) => {
             Promise.all(body.map((notification) => {
