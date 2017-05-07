@@ -70,3 +70,17 @@ export const deleteColumn = (url) => {
     url: url,
   }
 }
+
+export const updateColumn = (url) => {
+  return dispatch => {
+    dispatch(
+      {
+        type: UPDATE_COLUMN,
+        url: url,
+      }
+    )
+    dispatch(fetchItems(url))
+    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url)
+      .then((title) => dispatch(setName(url, title)))
+  }
+}
