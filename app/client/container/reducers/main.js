@@ -26,10 +26,14 @@ const columnReducer = (state = initialState, action) => {
         }))
       );
     case columnActions.RECEIVE_ITEMS:
+      const new_items = [
+        ...state.get(action.url).get("items").filter(item => !(action.items.map(item => item.key).includes(item.key))),
+        ...action.items
+      ] //need sort
       return state.update(
         action.url,
         (value => value.update({
-          items: [...action.items],
+          items: new_items,
           isFetching: false
         }))
       )
