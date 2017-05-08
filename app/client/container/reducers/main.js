@@ -39,8 +39,8 @@ const columnReducer = (state = initialState, action) => {
         action.url,
         (value => value.update({
           items: new_items,
-          update_at: new Date(),
-          isFetching: false
+          update_at: action.update_at,
+          isFetching: false,
         }))
       )
     case columnActions.RECEIVE_ITEM:
