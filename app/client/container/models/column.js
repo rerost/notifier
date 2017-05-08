@@ -3,6 +3,7 @@ import { Record } from 'immutable'
 export default class Column extends Record({
   name: "Loading...",
   items: [],
+  update_at: null, //Date
   isFetching: false,
   isMainColumn: false
 }) {
