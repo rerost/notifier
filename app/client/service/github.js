@@ -58,7 +58,7 @@ export default class Github {
   }
 
   static convertToGithubTime(date) {
-    return (date.getYear() + 70) + "-" + date.getMonth() + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "Z"
+    return (date.getYear() + 70) + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "Z"
   }
 
   getUrl(url) {
