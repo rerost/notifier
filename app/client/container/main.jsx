@@ -17,9 +17,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     load: (url) => {
-      dispatch(columnActions.fetchItems(url))
+      dispatch(columnActions.fetchItems(url, url))
     },
-    addColumn: (url) => {
+    addColumn: (url, update_at) => {
       dispatch(columnActions.addColumn(url))
     },
     deleteColumn: (url) => {

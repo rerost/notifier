@@ -15,12 +15,18 @@ const requestItems = (url) => {
 }
 
 const receiveItems = (url, items) => {
-  return {
-    type: RECEIVE_ITEMS,
-    name: url,  //need get issue title
-    items: items,
-    url: url,
-    receivedAt: Date.now(),
+  return dispatch => {
+    const receivedAt = new Date()
+
+    dispatch({
+      type: RECEIVE_ITEMS,
+      name: url,  //need get issue title
+      items: items,
+      url: url,
+      update_at: receivedAt,
+    })
+
+    setTimeout(dispatch(updateColumn(url, receivedAt)), 60000)
   }
 }
 
@@ -30,14 +36,13 @@ const receiveItem = (url, item) => {
     name: url,  //need get issue title
     item: item,
     url: url,
-    receivedAt: Date.now(),
   }
 }
 
-export const fetchItems = (url) => {
+export const fetchItems = (url, request_url) => {
   return dispatch => {
     dispatch(requestItems(url))
-    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url)
+    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(request_url)
       .then((items) => dispatch(receiveItems(url, items)))
   }
 }
@@ -50,7 +55,7 @@ export const setName = (url, name) => {
   }
 }
 
-export const addColumn = (url) => {
+export const addColumn = (url, update_at) => {
   return dispatch => {
     dispatch(
       {
@@ -60,8 +65,7 @@ export const addColumn = (url) => {
     )
     new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url.replace("/comments", ""), "issue")
       .then((title) => dispatch(setName(url, title)))
-    dispatch(fetchItems(url))
-    setInterval(() => {dispatch(fetchItems(url))}, 60000)
+    dispatch(fetchItems(url, url))
   }
 }
 
@@ -69,5 +73,18 @@ export const deleteColumn = (url) => {
   return {
     type: DELETE_COLUMN,
     url: url,
+  }
+}
+
+// update_at : new Date
+// update_at : "2017-04-29T18:27:46Z"
+export const updateColumn = (url, update_at) => {
+  return dispatch => {
+    if (update_at == "") {
+      dispatch(fetchItems(url, url))
+    }
+    else {
+      dispatch(fetchItems(url, url + "?since=" + Github.convertToGithubTime(update_at)))
+    }
   }
 }
