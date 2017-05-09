@@ -83,7 +83,6 @@ export const deleteColumn = (url) => {
 
 // update_at : new Date
 export const updateColumn = (url, update_at) => {
-  console.log({url, update_at})
   return dispatch => {
     if (update_at == "") {
       dispatch(fetchItems(url))
