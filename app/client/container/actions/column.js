@@ -23,10 +23,8 @@ const receiveItems = (url, items) => {
       name: url,  //need get issue title
       items: items,
       url: url,
-      update_at: receivedAt,
+      updateAt: receivedAt,
     })
-
-    setTimeout(dispatch(updateColumn(url, receivedAt)), 60000)
   }
 }
 
@@ -39,11 +37,18 @@ const receiveItem = (url, item) => {
   }
 }
 
-export const fetchItems = (url, request_url) => {
+export const fetchItems = (url, option = {}) => {
   return dispatch => {
     dispatch(requestItems(url))
-    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(request_url)
-      .then((items) => dispatch(receiveItems(url, items)))
+    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url, option)
+      .then((items) => {
+        items.map(item => {
+          var n = new Notification('Notifier', {
+            body: item.content
+          });
+        })
+        dispatch(receiveItems(url, items))
+      })
   }
 }
 
@@ -77,14 +82,14 @@ export const deleteColumn = (url) => {
 }
 
 // update_at : new Date
-// update_at : "2017-04-29T18:27:46Z"
 export const updateColumn = (url, update_at) => {
+  console.log({url, update_at})
   return dispatch => {
     if (update_at == "") {
-      dispatch(fetchItems(url, url))
+      dispatch(fetchItems(url))
     }
     else {
-      dispatch(fetchItems(url, url + "?since=" + Github.convertToGithubTime(update_at)))
+      dispatch(fetchItems(url, {since: Github.convertToGithubTime(update_at)}))
     }
   }
 }
