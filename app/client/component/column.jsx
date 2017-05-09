@@ -7,6 +7,19 @@ import CSSModules from 'react-css-modules';
 import styles from './column.scss'
 
 class Column extends React.Component {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.updateAt) {
+      const updateAt = nextProps.updateAt
+      setTimeout(
+        (
+          () => {
+            this.props.updateColumn(this.props.url, updateAt)
+          }
+        ).bind(this),
+        60 * 1000
+      )
+    }
+  }
   render() {
     return(
       <div styleName="base">

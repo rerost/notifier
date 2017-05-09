@@ -17,13 +17,16 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     load: (url) => {
-      dispatch(columnActions.fetchItems(url, url))
+      dispatch(columnActions.fetchItems(url))
     },
     addColumn: (url, update_at) => {
       dispatch(columnActions.addColumn(url))
     },
     deleteColumn: (url) => {
       dispatch(columnActions.deleteColumn(url))
+    },
+    updateColumn: (url, update_at) => {
+      dispatch(columnActions.updateColumn(url, update_at))
     },
   }
 }
@@ -40,6 +43,7 @@ class Main extends React.Component {
           columns={this.props.columns}
           addColumn={this.props.addColumn}
           deleteColumn={this.props.deleteColumn}
+          updateColumn={this.props.updateColumn}
         />
       </div>
     );
