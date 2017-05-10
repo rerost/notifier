@@ -103,6 +103,7 @@ export default class Github {
                 reply_user:    2,
                 reply_content: 1,
                 url:           url,
+                html_url       item.html_url,
               }
             })
             resolve(items)
