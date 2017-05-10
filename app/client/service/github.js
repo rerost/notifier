@@ -44,17 +44,7 @@ export default class Github {
 
   // "2017-04-29T18:27:46Z"
   static convertToDate(github_time) {
-    const GITHUB_TIME_REGEX = /^(\d*)-(\d*)-(\d*)T(\d*):(\d*):(\d*)/
-    const result = GITHUB_TIME_REGEX.exec(github_time)
-    if (result == null) {
-      return 0
-    }
-
-    //result = ["2017-04-29T18:27:46", "2017", "04", "29", "18", "27", "46", index: 0, input: "2017-04-29T18:27:46Z"]
-
-    //Mapping [year, month, day, hour, minute, second]
-    const date = result.slice(1,6).map(sn => Number(sn))
-    return new Date(...date)
+    return new Date(github_time)
   }
 
   static convertToGithubTime(date) {
