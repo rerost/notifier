@@ -100,7 +100,7 @@ export default class Github {
         })
       case "comments":
         return new Promise((resolve, reject) => {
-          getUrl({}).then((body) => {
+          getUrl(options).then((body) => {
             const items = body.map((item) => {
               return {
                 timestamp:     this.constructor.convertToDate(item.updated_at),
