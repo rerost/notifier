@@ -11,7 +11,10 @@ class Column extends React.Component {
     this.props.updateColumn(this.props.url, this.props.updateAt)
   }
   componentDidMount() {
-    setInterval(this.update.bind(this), 60 * 1000)
+    this.setInterval = setInterval(this.update.bind(this), 60 * 1000)
+  }
+  componentWillUnmount() {
+    clearInterval(this.setInterval)
   }
   render() {
     return(
