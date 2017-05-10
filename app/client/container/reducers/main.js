@@ -39,7 +39,7 @@ const columnReducer = (state = initialState, action) => {
         action.url,
         (value => value.update({
           items: new_items,
-          update_at: action.update_at,
+          updateAt: action.updateAt,
           isFetching: false,
         }))
       )

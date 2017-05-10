@@ -58,25 +58,31 @@ export default class Github {
   }
 
   static convertToGithubTime(date) {
-    return (date.getYear() + 70) + "-" + (date.getMonth() + 1) + "-" + date.getDate() + "T" + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() + "Z"
+    return date.toISOString().replace(/\.\d*/,"")
   }
 
-  getUrl(url) {
-    const getUrl = new Promise((resolve, reject) => {
-      this.client.get(url, {}, (err, status, body, headers) => {
-        resolve(body)
+  // url = "https://.."
+  // options = {all: true, since: "2017-04-29T18:27:46Z", ...}
+  getUrl(url, options) {
+    var getUrl = (options) => {
+      return new Promise((resolve, reject) => {
+        this.client.get(url, options, (err, status, body, headers) => {
+          resolve(body)
+        })
       })
-    })
+    }
+
     const url_type = this.getUrlType(url)
     switch (url_type) {
       case "notifications":
         return new Promise((resolve, reject) => {
-          getUrl.then((body) => {
+          getUrl(options).then((body) => {
             Promise.all(body.map((notification) => {
               return new Promise((res, rej) => {
                 this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
                   const item = {
                     timestamp:     this.constructor.convertToDate(body.updated_at),
+                    key:           body.issue_url, //only one notification one issue
                     id:            body.id,
                     user_id:       body.user.id,
                     content_id:    notification.id,
@@ -94,10 +100,11 @@ export default class Github {
         })
       case "comments":
         return new Promise((resolve, reject) => {
-          getUrl.then((body) => {
+          getUrl(options).then((body) => {
             const items = body.map((item) => {
               return {
                 timestamp:     this.constructor.convertToDate(item.updated_at),
+                key:           item.id,
                 id:            item.id,
                 user_id:       item.user.id,
                 content_id:    item.id,
@@ -113,7 +120,7 @@ export default class Github {
         })
       case "issue":
         return new Promise((resolve, reject) => {
-          getUrl.then((body) => {
+          getUrl({}).then((body) => {
             resolve(body.title)
           })
         })
