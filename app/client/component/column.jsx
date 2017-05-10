@@ -7,18 +7,11 @@ import CSSModules from 'react-css-modules';
 import styles from './column.scss'
 
 class Column extends React.Component {
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.updateAt) {
-      const updateAt = nextProps.updateAt
-      setTimeout(
-        (
-          () => {
-            this.props.updateColumn(this.props.url, updateAt)
-          }
-        ).bind(this),
-        60 * 1000
-      )
-    }
+  update() {
+    this.props.updateColumn(this.props.url, this.props.updateAt)
+  }
+  componentDidMount() {
+    setInterval(this.update.bind(this), 60 * 1000)
   }
   render() {
     return(
@@ -38,7 +31,7 @@ class Column extends React.Component {
           })()}
         </div>
         <div styleName="body">
-          {this.props.items.map((item) => <ColumnItem key={item.id} item={item} addColumn={this.props.addColumn}/>) }
+          {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
         </div>
       </div>
     );
