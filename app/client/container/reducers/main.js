@@ -9,7 +9,7 @@ import Column from '../models/column.js'
 const initialState = Map({
   "keys": ["https://api.github.com/notifications"],
   "https://api.github.com/notifications": new Column({
-    name: "Loading...",
+    name: "Notification",
     items: [],
     isFetching: false,
     isMainColumn: true,
