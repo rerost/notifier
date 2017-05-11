@@ -11,7 +11,6 @@ const style = {
 
 export default class ColumnItem extends React.Component {
   render() {
-    console.log(this.props.item.avatar_url)
     const avatar = <Avatar src={this.props.item.avatar_url} />
     return(
       <ListItem
