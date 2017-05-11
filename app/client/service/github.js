@@ -53,8 +53,8 @@ export default class Github {
 
   // url = "https://.."
   // options = {all: true, since: "2017-04-29T18:27:46Z", ...}
-  getUrl(url, options) {
-    var getUrl = (options) => {
+  getUrl(url, options = {}) {
+    var getUrl = (url, options) => {
       return new Promise((resolve, reject) => {
         this.client.get(url, options, (err, status, body, headers) => {
           resolve(body)
@@ -66,7 +66,7 @@ export default class Github {
     switch (url_type) {
       case "notifications":
         return new Promise((resolve, reject) => {
-          getUrl(options).then((body) => {
+          getUrl(url, options).then((body) => {
             Promise.all(body.map((notification) => {
               return new Promise((res, rej) => {
                 this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
@@ -80,39 +80,53 @@ export default class Github {
                     content:       body.body,
                     reply_user:    2,
                     reply_content: 1,
-                    url:           body.issue_url + "/comments",
+                    url:           body.issue_url,
                   }
                   res(item)
                 })
               })
-            })).then(resolve)
-          })
-        })
-      case "comments":
-        return new Promise((resolve, reject) => {
-          getUrl(options).then((body) => {
-            const items = body.map((item) => {
-              return {
-                timestamp:     this.constructor.convertToDate(item.updated_at),
-                key:           item.id,
-                id:            item.id,
-                user_id:       item.user.id,
-                content_id:    item.id,
-                user_name:     item.user.url,
-                content:       item.body,
-                reply_user:    2,
-                reply_content: 1,
-                url:           url,
-                html_url       item.html_url,
-              }
-            })
-            resolve(items)
+            })).then((items) => resolve({items}))
           })
         })
       case "issue":
         return new Promise((resolve, reject) => {
-          getUrl({}).then((body) => {
-            resolve(body.title)
+          getUrl(url, options).then((issue) => {
+
+            getUrl(issue.comments_url, options).then((comments) => {
+              var items = comments.map((item) => {
+                return {
+                  timestamp:     this.constructor.convertToDate(item.create_at), //Order by create_at because github is
+                  key:           item.id,
+                  id:            item.id,
+                  user_id:       item.user.id,
+                  content_id:    item.id,
+                  user_name:     item.user.login,
+                  content:       item.body,
+                  reply_user:    2,
+                  reply_content: 1,
+                  url:           url,
+                  html_url:      item.html_url,
+                  isEdited:      false, //FIXME(@rerost)
+                }
+              })
+              const head_item = {
+                timestamp:     this.constructor.convertToDate(issue.create_at),
+                key:           issue.id,
+                id:            issue.id,
+                user_id:       issue.user.id,
+                content_id:    issue.id,
+                user_name:     issue.user.login,
+                content:       issue.body,
+                reply_user:    2,
+                reply_content: 1,
+                url:           url,
+                html_url:      issue.html_url,
+                isEdited:      false, //FIXME(@rerost)
+              }
+              items = [head_item, ...items]
+              const title = issue.title
+              resolve({items, title})
+            })
           })
         })
     }
