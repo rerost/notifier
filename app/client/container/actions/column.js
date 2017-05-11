@@ -41,7 +41,7 @@ export const fetchItems = (url, option = {}) => {
   return dispatch => {
     dispatch(requestItems(url))
     return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url, option)
-      .then((items) => {
+      .then(({items}) => {
         items.map(item => {
           var n = new Notification('Notifier', {
             body: item.content
@@ -68,8 +68,8 @@ export const addColumn = (url, update_at) => {
         url: url,
       }
     )
-    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url.replace("/comments", ""), "issue")
-      .then((title) => dispatch(setName(url, title)))
+    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url)
+      .then(({title}) => dispatch(setName(url, title)))
     dispatch(fetchItems(url, url))
   }
 }
