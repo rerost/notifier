@@ -5,6 +5,7 @@ import CSSModules from 'react-css-modules';
 import Github from '../service/github.js'
 
 import AppBar from 'material-ui/AppBar';
+import { List } from 'material-ui/List';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //See https://github.com/callemall/material-ui/issues/4670#issuecomment-231603600
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -39,7 +40,9 @@ class Column extends React.Component {
               }
             />
           <div styleName="body">
-            {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
+            <List >
+              {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
+            </List>
           </div>
         </div>
       </MuiThemeProvider>
