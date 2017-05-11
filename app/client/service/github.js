@@ -81,6 +81,7 @@ export default class Github {
                     reply_user:    2,
                     reply_content: 1,
                     url:           body.issue_url,
+                    avatar_url:    body.user.avatar_url,
                   }
                   res(item)
                 })
@@ -105,6 +106,7 @@ export default class Github {
                   reply_user:    2,
                   reply_content: 1,
                   url:           url,
+                  avatar_url:    item.user.avatar_url,
                   html_url:      item.html_url,
                   isEdited:      false, //FIXME(@rerost)
                 }
@@ -121,6 +123,7 @@ export default class Github {
                 reply_content: 1,
                 url:           url,
                 html_url:      issue.html_url,
+                avatar_url:    issue.user.avatar_url,
                 isEdited:      false, //FIXME(@rerost)
               }
               items = [head_item, ...items]

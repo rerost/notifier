@@ -1,8 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import ColumnItem from './column_item.jsx'
-import Github from '../service/github.js'
 import CSSModules from 'react-css-modules';
+
+import Github from '../service/github.js'
+
+import AppBar from 'material-ui/AppBar';
+import { List } from 'material-ui/List';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+//See https://github.com/callemall/material-ui/issues/4670#issuecomment-231603600
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
+import ColumnItem from './column_item.jsx'
+import ColumnSettingButton from './column_setting_button.jsx'
 
 import styles from './column.scss'
 
@@ -18,25 +28,24 @@ class Column extends React.Component {
   }
   render() {
     return(
-      <div styleName="base">
-        <div styleName="head">
-          <div styleName="name">
-            {this.props.name}
+      <MuiThemeProvider>
+        <div styleName="base">
+            <AppBar
+              title={this.props.name}
+              iconElementRight={this.props.isMainColumn ? null :
+                <ColumnSettingButton
+                  muiName='IconMenu'
+                  deleteColumn={() => this.props.deleteColumn(this.props.url)}
+                />
+              }
+            />
+          <div styleName="body">
+            <List >
+              {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
+            </List>
           </div>
-          {(() => {
-            if(!this.props.isMainColumn) {
-              return (
-                <div styleName="close-button" onClick={() => this.props.isMainColumn ? {} :this.props.deleteColumn(this.props.url)}>
-                  x
-                </div>
-              )
-            }
-          })()}
         </div>
-        <div styleName="body">
-          {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
-        </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
