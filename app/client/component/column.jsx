@@ -27,22 +27,22 @@ class Column extends React.Component {
   }
   render() {
     return(
-      <div styleName="base">
-        <MuiThemeProvider>
-          <AppBar
-            title={this.props.name}
-            iconElementRight={this.props.isMainColumn ? null :
-              <ColumnSettingButton
-                muiName='IconMenu'
-                deleteColumn={() => this.props.deleteColumn(this.props.url)}
-              />
-            }
-          />
-        </MuiThemeProvider>
-        <div styleName="body">
-          {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
+      <MuiThemeProvider>
+        <div styleName="base">
+            <AppBar
+              title={this.props.name}
+              iconElementRight={this.props.isMainColumn ? null :
+                <ColumnSettingButton
+                  muiName='IconMenu'
+                  deleteColumn={() => this.props.deleteColumn(this.props.url)}
+                />
+              }
+            />
+          <div styleName="body">
+            {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     );
   }
 }
