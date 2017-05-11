@@ -70,7 +70,7 @@ export const addColumn = (url, update_at) => {
     )
     new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url)
       .then(({title}) => dispatch(setName(url, title)))
-    dispatch(fetchItems(url, url))
+    dispatch(fetchItems(url))
   }
 }
 

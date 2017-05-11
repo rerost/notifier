@@ -92,7 +92,6 @@ export default class Github {
       case "issue":
         return new Promise((resolve, reject) => {
           getUrl(url, options).then((issue) => {
-
             getUrl(issue.comments_url, options).then((comments) => {
               var items = comments.map((item) => {
                 return {
@@ -111,6 +110,7 @@ export default class Github {
                   isEdited:      false, //FIXME(@rerost)
                 }
               })
+
               const head_item = {
                 timestamp:     this.constructor.convertToDate(issue.create_at),
                 key:           issue.id,
@@ -126,7 +126,11 @@ export default class Github {
                 avatar_url:    issue.user.avatar_url,
                 isEdited:      false, //FIXME(@rerost)
               }
-              items = [head_item, ...items]
+
+              if(options.since == null || options.since != null && this.constructor.convertToDate(issue.update_at) > this.constructor.convertToDate(options.since)) {
+                items = [head_item, ...items]
+              }
+
               const title = issue.title
               resolve({items, title})
             })
