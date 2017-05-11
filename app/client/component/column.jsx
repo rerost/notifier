@@ -6,6 +6,7 @@ import Github from '../service/github.js'
 
 import AppBar from 'material-ui/AppBar';
 import { List } from 'material-ui/List';
+import CircularProgress from 'material-ui/CircularProgress';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 //See https://github.com/callemall/material-ui/issues/4670#issuecomment-231603600
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -15,6 +16,11 @@ import ColumnItem from './column_item.jsx'
 import ColumnSettingButton from './column_setting_button.jsx'
 
 import styles from './column.scss'
+
+const progress_style = {
+  display: "block",
+  margin:  "auto"
+}
 
 class Column extends React.Component {
   update() {
@@ -43,6 +49,14 @@ class Column extends React.Component {
             <List >
               {this.props.items.map((item) => <ColumnItem key={item.key} item={item} addColumn={this.props.addColumn}/>) }
             </List>
+            {(() => {
+              if (this.props.items.length == 0) //FIXME use isFetching
+                return (
+                  <div>
+                    <CircularProgress style={progress_style} size={80} thickness={5} />
+                  </div>
+                )
+            })()}
           </div>
         </div>
       </MuiThemeProvider>
