@@ -8,6 +8,8 @@ import Table from '../component/table.jsx'
 import configureStore from './stores/main.js'
 import * as columnActions from './actions/column.js'
 
+import { GithubOauth } from '../service/github'
+
 const mapStateToProps = (state) => {
   return {
     columns: state.columnReducer,
@@ -56,6 +58,10 @@ const MainConnected = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Main)
+
+if (localStorage.getItem("githubToken") == null) {
+  window.open(GithubOauth.requestOauthUrl())
+}
 
 ReactDOM.render(
   <Provider store={store}>
