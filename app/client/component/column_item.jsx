@@ -37,7 +37,7 @@ export default class ColumnItem extends React.Component {
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           >
             <MenuItem primaryText="Mark as Read" />
-            <MenuItem primaryText="Open in Github.com"/>
+            <MenuItem primaryText="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
           </IconMenu>
         </CardActions>
       </Card>
