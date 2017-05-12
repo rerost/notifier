@@ -22,20 +22,10 @@ const receiveItems = (url, items) => {
 
     dispatch({
       type: RECEIVE_ITEMS,
-      name: url,  //need get issue title
       items: items,
       url: url,
       updateAt: receivedAt,
     })
-  }
-}
-
-const receiveItem = (url, item) => {
-  return {
-    type: RECEIVE_ITEM,
-    name: url,  //need get issue title
-    item: item,
-    url: url,
   }
 }
 
