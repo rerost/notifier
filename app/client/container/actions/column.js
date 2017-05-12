@@ -4,7 +4,6 @@ const { openUrl } = remote.require('./index.js')
 
 export const REQUEST_ITEMS  = "column/request_items"
 export const RECEIVE_ITEMS  = "column/receive_items"
-export const RECEIVE_ITEM   = "column/receive_item"
 export const SET_NAME       = "column/set_name"
 export const ADD_COLUMN     = "column/add_column"
 export const DELETE_COLUMN  = "column/delete_column"

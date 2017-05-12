@@ -43,14 +43,6 @@ const columnReducer = (state = initialState, action) => {
           isFetching: false,
         }))
       )
-    case columnActions.RECEIVE_ITEM:
-      return state.update(
-        action.url,
-        (value => value.update({
-          items: [action.item, ...state.get(action.url).items],
-          isFetching: false
-        }))
-      )
     case columnActions.SET_NAME:
       return state.update(
         action.url,
