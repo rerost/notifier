@@ -53,7 +53,7 @@ class Column extends React.Component {
               if (this.props.items.length == 0) //FIXME use isFetching
                 return (
                   <div>
-                    <CircularProgress style={progress_style} size={80} thickness={5} />
+                    <CircularProgress style={progress_style} size={40} thickness={5} />
                   </div>
                 )
             })()}
