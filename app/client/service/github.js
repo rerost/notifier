@@ -9,6 +9,13 @@ const convert = (item) => {
   }
 }
 
+export class GithubOauth {
+  static requestOauthUrl() {
+    const client_id = "331291a298e1d74f02ea"
+    return `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=public_repo%20notifications`
+  }
+}
+
 export default class Github {
   constructor(token) {
     this.client = github.client(token);
@@ -69,6 +76,7 @@ export default class Github {
           getUrl(url, options).then((body) => {
             Promise.all(body.map((notification) => {
               return new Promise((res, rej) => {
+                //コメントがなくてissueだけたった場合latest_comment_urlがそのままissueのurlになる
                 this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
                   const item = {
                     timestamp:     this.constructor.convertToDate(body.updated_at),
@@ -81,7 +89,7 @@ export default class Github {
                     content:       body.body,
                     reply_user:    2,
                     reply_content: 1,
-                    url:           body.issue_url,
+                    url:           body.issue_url ? body.issue_url : body.url,
                     html_url:      body.html_url,
                     avatar_url:    body.user.avatar_url,
                   }
