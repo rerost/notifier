@@ -15,6 +15,9 @@ injectTapEventPlugin();
 import ColumnItem from './column_item.jsx'
 import ColumnSettingButton from './column_setting_button.jsx'
 
+const remote = require('electron').remote
+const { openUrl } = remote.require('./index.js')
+
 import styles from './column.scss'
 
 const progress_style = {
@@ -28,6 +31,19 @@ class Column extends React.Component {
   }
   componentDidMount() {
     this.setInterval = setInterval(this.update.bind(this), 60 * 1000)
+  }
+  componentWillUpdate(nextProps) {
+    if (nextProps.isMainColumn) {
+      const items = nextProps.items.filter(item => !this.props.items.map(item_ => item_.key).includes(item.key))
+      items.map(item => {
+        var n = new Notification('Notifier', {
+          body: item.content
+        });
+        n.onclick = () => {
+          openUrl(item.html_url)
+        }
+      })
+    }
   }
   componentWillUnmount() {
     clearInterval(this.setInterval)
