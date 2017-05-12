@@ -11,6 +11,9 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import FlatButton from 'material-ui/FlatButton';
 
+const remote = require('electron').remote
+const { openUrl } = remote.require('./index.js')
+
 export default class ColumnItem extends React.Component {
   render() {
     const avatar = <Avatar src={this.props.item.avatar_url} />
@@ -37,7 +40,7 @@ export default class ColumnItem extends React.Component {
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           >
             <MenuItem primaryText="Mark as Read" />
-            <MenuItem primaryText="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
+            <MenuItem primaryText="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
           </IconMenu>
         </CardActions>
       </Card>

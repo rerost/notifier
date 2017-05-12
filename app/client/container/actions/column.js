@@ -1,4 +1,6 @@
 import Github from '../../service/github.js'
+const remote = require('electron').remote
+const { openUrl } = remote.require('./index.js')
 
 export const REQUEST_ITEMS  = "column/request_items"
 export const RECEIVE_ITEMS  = "column/receive_items"
@@ -46,6 +48,9 @@ export const fetchItems = (url, option = {}) => {
           var n = new Notification('Notifier', {
             body: item.content
           });
+          n.onclick = () => {
+            openUrl(item.html_url)
+          }
         })
         dispatch(receiveItems(url, items))
       })

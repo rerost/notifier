@@ -82,6 +82,7 @@ var config = {
     new NodeTargetPlugin()
   ],
   externals: [
+    'electron'
     // 'socket.io-client',
     // 'md5',
     // 'superagent',

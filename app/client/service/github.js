@@ -82,6 +82,7 @@ export default class Github {
                     reply_user:    2,
                     reply_content: 1,
                     url:           body.issue_url,
+                    html_url:      body.html_url,
                     avatar_url:    body.user.avatar_url,
                   }
                   res(item)
