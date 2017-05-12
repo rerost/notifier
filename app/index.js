@@ -13,6 +13,11 @@ function createWindow() {
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
 
+  win.webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  })
+
   win.on('closed', () => {
     win = null;
   });
