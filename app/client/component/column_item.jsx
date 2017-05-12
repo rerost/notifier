@@ -14,6 +14,14 @@ import FlatButton from 'material-ui/FlatButton';
 export default class ColumnItem extends React.Component {
   render() {
     const avatar = <Avatar src={this.props.item.avatar_url} />
+    if(this.props.isMainColumn) {
+      const truncated_context = this.props.item.content.substring(0, 24) + ((this.props.item.content.length > 24) ? "..." : "") //FIXME think japanese
+      return (<ListItem
+        leftAvatar={avatar}
+        primaryText={truncated_context}
+        onClick={() => this.props.addColumn(this.props.item.url)}
+      />)
+    }
     return(
       <Card>
         <CardHeader
