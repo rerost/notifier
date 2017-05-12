@@ -1,6 +1,9 @@
 const electron = require('electron');
 const { app, shell } = electron;
 const { BrowserWindow } = electron
+const express = require('express')
+const server = express();
+
 
 let win;
 
@@ -28,6 +31,16 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+server.get('/oauth/callback/github', (req, res) => {
+  win.webContents.executeJavaScript(`localStorage.setItem(\'githubToken\', \'${req.query.code}\')`); //JSが実行されるので色々問題がある。このような表記はしたくない
+  res.send(req.query)
+});
+
+server.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
+
 
 exports.openUrl = (url) => {
   shell.openExternal(url)
