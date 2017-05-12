@@ -97,7 +97,7 @@ export default class Github {
             getUrl(issue.comments_url, options).then((comments) => {
               var items = comments.map((item) => {
                 return {
-                  timestamp:     this.constructor.convertToDate(item.create_at), //Order by create_at because github is
+                  timestamp:     this.constructor.convertToDate(item.created_at), //Order by create_at because github is
                   key:           item.id,
                   id:            item.id,
                   user_id:       item.user.id,
@@ -115,7 +115,7 @@ export default class Github {
               })
 
               const head_item = {
-                timestamp:     this.constructor.convertToDate(issue.create_at),
+                timestamp:     this.constructor.convertToDate(issue.created_at),
                 key:           issue.id,
                 id:            issue.id,
                 user_id:       issue.user.id,
