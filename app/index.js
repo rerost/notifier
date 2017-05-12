@@ -1,5 +1,5 @@
 const electron = require('electron');
-const { app } = electron;
+const { app, shell } = electron;
 const { BrowserWindow } = electron
 
 let win;
@@ -28,3 +28,7 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+exports.openUrl = (url) => {
+  shell.openExternal(url)
+}
