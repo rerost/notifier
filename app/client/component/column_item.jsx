@@ -22,6 +22,13 @@ export default class ColumnItem extends React.Component {
       return (<ListItem
         leftAvatar={avatar}
         primaryText={truncated_context}
+        rightIconButton={
+          <IconMenu
+            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+          >
+            <MenuItem primaryText="Mark as Read" />
+          </IconMenu>
+        }
         onClick={() => this.props.addColumn(this.props.item.url)}
       />)
     }
@@ -39,7 +46,6 @@ export default class ColumnItem extends React.Component {
           <IconMenu
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           >
-            <MenuItem primaryText="Mark as Read" />
             <MenuItem primaryText="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
           </IconMenu>
         </CardActions>
