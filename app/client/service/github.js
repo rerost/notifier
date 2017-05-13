@@ -9,13 +9,6 @@ const convert = (item) => {
   }
 }
 
-export class GithubOauth {
-  static requestOauthUrl() {
-    const client_id = "331291a298e1d74f02ea"
-    return `https://github.com/login/oauth/authorize?client_id=${client_id}&scope=public_repo%20notifications`
-  }
-}
-
 export default class Github {
   constructor(token) {
     this.client = github.client(token);

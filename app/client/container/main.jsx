@@ -8,7 +8,7 @@ import Table from '../component/table.jsx'
 import configureStore from './stores/main.js'
 import * as columnActions from './actions/column.js'
 
-import { GithubOauth } from '../service/github'
+import { GithubOauth } from '../../lib/oauth.js'
 
 const mapStateToProps = (state) => {
   return {
@@ -60,7 +60,7 @@ const MainConnected = connect(
 )(Main)
 
 if (localStorage.getItem("githubToken") == null) {
-  window.open(GithubOauth.requestOauthUrl())
+  window.open(GithubOauth.requestAccessUrl())
 }
 
 ReactDOM.render(

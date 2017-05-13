@@ -3,6 +3,9 @@ const { app, shell } = electron;
 const { BrowserWindow } = electron
 const express = require('express')
 const server = express();
+const fetch = require('node-fetch')
+
+const { GithubOauth, parseParam } = require('./lib/oauth.js')
 
 
 let win;
@@ -38,8 +41,10 @@ app.on('activate', () => {
 });
 
 server.get('/oauth/callback/github', (req, res) => {
-  win.webContents.executeJavaScript(`localStorage.setItem(\'githubToken\', \'${req.query.code}\')`); //JSが実行されるので色々問題がある。このような表記はしたくない
-  res.send(req.query)
+  GithubOauth.requestAccessToken(req.query.code)
+  .then((response) => response.text())
+  .then((text) => win.webContents.executeJavaScript(`localStorage.setItem(\'githubToken\', \'${parseParam(text).access_token}\')`)) //JSが実行されるので色々問題がある。このような表記はしたくない
+  res.send("authorized!!")
 });
 
 server.listen(3000, function () {
