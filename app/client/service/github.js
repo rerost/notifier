@@ -69,6 +69,7 @@ export default class Github {
           getUrl(url, options).then((body) => {
             Promise.all(body.map((notification) => {
               return new Promise((res, rej) => {
+                //コメントがなくてissueだけたった場合latest_comment_urlがそのままissueのurlになる
                 this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
                   const item = {
                     timestamp:     this.constructor.convertToDate(body.updated_at),
@@ -81,7 +82,7 @@ export default class Github {
                     content:       body.body,
                     reply_user:    2,
                     reply_content: 1,
-                    url:           body.issue_url,
+                    url:           body.issue_url ? body.issue_url : body.url,
                     html_url:      body.html_url,
                     avatar_url:    body.user.avatar_url,
                   }

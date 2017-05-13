@@ -1,6 +1,12 @@
 const electron = require('electron');
 const { app, shell } = electron;
 const { BrowserWindow } = electron
+const express = require('express')
+const server = express();
+const fetch = require('node-fetch')
+
+const { GithubOauth, parseParam } = require('./lib/oauth.js')
+
 
 let win;
 
@@ -9,6 +15,11 @@ function createWindow() {
   win = new BrowserWindow({width: size.width, height: size.height});
   win.loadURL(`file://${__dirname}/index.html`);
   win.webContents.openDevTools();
+
+  win.webContents.on('new-window', (event, url) => {
+    event.preventDefault();
+    shell.openExternal(url);
+  })
 
   win.on('closed', () => {
     win = null;
@@ -28,6 +39,18 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+server.get('/oauth/callback/github', (req, res) => {
+  GithubOauth.requestAccessToken(req.query.code)
+  .then((response) => response.text())
+  .then((text) => win.webContents.executeJavaScript(`localStorage.setItem(\'githubToken\', \'${parseParam(text).access_token}\')`)) //JSが実行されるので色々問題がある。このような表記はしたくない
+  res.send("authorized!!")
+});
+
+server.listen(3000, function () {
+  console.log('Example app listening on port 3000!');
+});
+
 
 exports.openUrl = (url) => {
   shell.openExternal(url)

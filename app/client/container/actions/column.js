@@ -29,8 +29,11 @@ const receiveItems = (url, items) => {
 export const fetchItems = (url, option = {}) => {
   return dispatch => {
     dispatch(requestItems(url))
-    return (new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a")).getUrl(url, option)
-      .then(({items}) => dispatch(receiveItems(url, items)))
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      return (new Github(token)).getUrl(url, option)
+        .then(({items}) => dispatch(receiveItems(url, items)))
+    }
   }
 }
 
@@ -50,8 +53,11 @@ export const addColumn = (url, update_at) => {
         url: url,
       }
     )
-    new Github("1f35bb9393933fac6fa8f04b700e4ee2c643637a").getUrl(url)
-      .then(({title}) => dispatch(setName(url, title)))
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      (new Github(localStorage.getItem(token))).getUrl(url)
+        .then(({title}) => dispatch(setName(url, title)))
+    }
     dispatch(fetchItems(url))
   }
 }
