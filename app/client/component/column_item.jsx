@@ -47,7 +47,7 @@ export default class ColumnItem extends React.Component {
           avatar={this.props.item.avatar_url}
         />
         <CardText>
-          <Markdown text={this.props.item.content} />
+          <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center"}}>
           <IconButton>
