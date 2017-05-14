@@ -51,6 +51,22 @@ export default class Github {
     return date.toISOString().replace(/\.\d*/,"")
   }
 
+  //"2017-04-29T18:27:46Z" => "2017-05-05 20:05"
+  static convertToReadableDate(github_time) {
+    const date = new Date(github_time)
+    //Integer -> Char -> Integer -> String
+    const padding = (number, padding, digit) => {
+      const s_number = "" + number
+      return padding.repeat(digit - s_number.length) + s_number
+    }
+    const year   = date.getYear() + 1900
+    const month  = padding(date.getMonth() + 1, "0", 2)
+    const date_  = padding(date.getMonth(),     "0", 2)
+    const hour   = padding(date.getHours(),     "0", 2)
+    const minute = padding(date.getHours(),     "0", 2)
+    return `${year}-${month}-${date_} ${hour}:${minute}`
+  }
+
   // url = "https://.."
   // options = {all: true, since: "2017-04-29T18:27:46Z", ...}
   getUrl(url, options = {}) {
@@ -78,7 +94,7 @@ export default class Github {
                     user_id:       body.user.id,
                     content_id:    notification.id,
                     user_login:    body.user.login,
-                    user_name:     body.created_at,
+                    user_name:     this.constructor.convertToReadableDate(body.created_at),
                     content:       body.body,
                     reply_user:    2,
                     reply_content: 1,
@@ -105,7 +121,7 @@ export default class Github {
                   user_id:       item.user.id,
                   content_id:    item.id,
                   user_login:    item.user.login,
-                  user_name:     item.created_at,
+                  user_name:     this.constructor.convertToReadableDate(item.created_at),
                   content:       item.body,
                   reply_user:    2,
                   reply_content: 1,
@@ -123,7 +139,7 @@ export default class Github {
                 user_id:       issue.user.id,
                 content_id:    issue.id,
                 user_login:    issue.user.login,
-                user_name:     issue.created_at,
+                user_name:     this.constructor.convertToReadableDate(issue.created_at),
                 content:       issue.body,
                 reply_user:    2,
                 reply_content: 1,
@@ -131,6 +147,7 @@ export default class Github {
                 html_url:      issue.html_url,
                 avatar_url:    issue.user.avatar_url,
                 isEdited:      false, //FIXME(@rerost)
+                readable_date: this.constructor.convertToReadableDate(issue.created_at),
               }
 
               if(options.since == null || options.since != null && this.constructor.convertToDate(issue.update_at) > this.constructor.convertToDate(options.since)) {
