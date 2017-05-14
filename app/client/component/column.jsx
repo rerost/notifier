@@ -63,7 +63,7 @@ class Column extends React.Component {
             />
           <div styleName="body">
             <List >
-              {this.props.items.map((item) => <ColumnItem key={item.key} item={item} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification}/>) }
+              {this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification}/>) }
             </List>
             {(() => {
               if (this.props.items.length == 0) //FIXME use isFetching
