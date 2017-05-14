@@ -15,4 +15,7 @@ export default class Column extends Record({
     )
     return cached
   }
+  delete_item(item_key) {
+    return this.set("items", this.items.filter(item => item.key != item_key))
+  }
 }

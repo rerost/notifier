@@ -77,6 +77,11 @@ const columnReducer = (state = initialState, action) => {
       ).delete(
         action.url
       )
+    case columnActions.DELETE_ITEM:
+      return state.update(
+        action.url,
+        (value => value.delete_item(action.item_key))
+      )
     default:
       return state
   }
