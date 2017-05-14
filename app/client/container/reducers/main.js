@@ -91,8 +91,12 @@ const modalReducer = (state = {}, action) => {
   switch (action.type) {
     case columnActions.SHOW_MODAL:
       return {
-        isDisplay: true,
+        isOpen: true,
         src: action.src,
+      }
+    case columnActions.HIDE_MODAL:
+      return {
+        isOpen: false,
       }
     default:
       return state
