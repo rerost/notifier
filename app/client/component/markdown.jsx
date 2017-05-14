@@ -13,8 +13,8 @@ export default class Markdown extends React.Component {
         dangerouslySetInnerHTML={{__html: html}}
         onClick={(e) => {
           //FIXME 画像かどうかの判定にsrcがあるかどうかで判断してしまっている
-          if ($(e.target).attr('src')) {
-            this.props.showModal($(e.target).attr('src'))
+          if (e.target.src) {
+            this.props.showModal(e.target.src)
           }
         }}
       />
