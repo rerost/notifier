@@ -61,9 +61,9 @@ export default class Github {
     }
     const year   = date.getYear() + 1900
     const month  = padding(date.getMonth() + 1, "0", 2)
-    const date_  = padding(date.getMonth(),     "0", 2)
+    const date_  = padding(date.getDate(),     "0", 2)
     const hour   = padding(date.getHours(),     "0", 2)
-    const minute = padding(date.getHours(),     "0", 2)
+    const minute = padding(date.getMinutes(),     "0", 2)
     return `${year}-${month}-${date_} ${hour}:${minute}`
   }
 
