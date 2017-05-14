@@ -49,15 +49,8 @@ export default class ColumnItem extends React.Component {
         <CardText>
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
-        <CardActions style={{display: "flex", alignItems: "center"}}>
-          <IconButton>
-            <ActionGrade />
-          </IconButton>
-          <IconMenu
-            iconButtonElement={<IconButton><NavigationExpandMoreIcon /></IconButton>}
-          >
-            <MenuItem primaryText="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
-          </IconMenu>
+        <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
+          <FlatButton label="Open in Browser" />
         </CardActions>
       </Card>
     );
