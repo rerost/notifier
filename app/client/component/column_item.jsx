@@ -24,7 +24,11 @@ export default class ColumnItem extends React.Component {
         primaryText={truncated_context}
         rightIconButton={
           <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            iconButtonElement={
+              <IconButton onClick={(e) => e.stopPropagation()}>
+                <MoreVertIcon />
+              </IconButton>
+            }
           >
             <MenuItem primaryText="Mark as Read" onClick={(e) => this.props.checkNotification(this.props.columnUrl, this.props.item.key, this.props.item.thread_url)}/>
           </IconMenu>
