@@ -1,17 +1,17 @@
 const fetch = require('node-fetch')
 
-const CLIENT_ID =  "331291a298e1d74f02ea"
-const CLIENT_SECRET = "bd9e2c1fbb0d53c7bca9904faceaf238e80025c2"
+const GITHUB_CLIENT_ID =  process.env.GITHUB_CLIENT_ID
+const GITHUB_CLIENT_SECRET = process.env.GITHUB_CLIENT_SECRET
 
 class GithubOauth {
   static requestAccessUrl() {
-    return `https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}&scope=public_repo%20notifications`
+    return `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&scope=public_repo%20notifications`
   }
   static requestAccessTokenUrl(code) {
-    return `https://github.com/login/oauth/access_token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}`
+    return `https://github.com/login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`
   }
   static requestAccessToken(code) {
-    return fetch(`https://github.com/login/oauth/access_token?client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}&code=${code}`,
+    return fetch(`https://github.com/login/oauth/access_token?client_id=${GITHUB_CLIENT_ID}&client_secret=${GITHUB_CLIENT_SECRET}&code=${code}`,
       {
         method: 'POST',
       }

@@ -4,6 +4,7 @@ const { BrowserWindow } = electron
 const express = require('express')
 const server = express();
 const fetch = require('node-fetch')
+require('dotenv').config({ path: __dirname + '/../.env' })
 
 const { GithubOauth, parseParam } = require('./lib/oauth.js')
 
