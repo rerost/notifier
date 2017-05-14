@@ -87,6 +87,19 @@ const columnReducer = (state = initialState, action) => {
   }
 }
 
+const modalReducer = (state = {}, action) => {
+  switch (action.type) {
+    case columnActions.SHOW_MODAL:
+      return {
+        isDisplay: true,
+        src: action.src,
+      }
+    default:
+      return state
+  }
+}
+
 export const reducer = combineReducers({
   columnReducer,
+  modalReducer,
 })

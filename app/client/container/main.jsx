@@ -13,6 +13,7 @@ import { GithubOauth } from '../../lib/oauth.js'
 const mapStateToProps = (state) => {
   return {
     columns: state.columnReducer,
+    modal: state.modalReducer,
   }
 }
 
