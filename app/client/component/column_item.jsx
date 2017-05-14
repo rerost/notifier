@@ -43,6 +43,7 @@ export default class ColumnItem extends React.Component {
       <Card>
         <CardHeader
           title={this.props.item.user_login}
+          subtitle={this.props.item.user_name}
           avatar={this.props.item.avatar_url}
         />
         <CardText>
