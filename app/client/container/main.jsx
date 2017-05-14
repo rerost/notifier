@@ -32,6 +32,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     checkNotification: (url, item_key, item_thread_url) => {
       dispatch(columnActions.checkNotification(url, item_key, item_thread_url))
+    },
+    showModal: (src) => {
+      dispatch(columnActions.showModal(src))
     }
   }
 }
@@ -50,6 +53,7 @@ class Main extends React.Component {
           deleteColumn={this.props.deleteColumn}
           updateColumn={this.props.updateColumn}
           checkNotification={this.props.checkNotification}
+          showModal={this.props.showModal}
         />
       </div>
     );

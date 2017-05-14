@@ -5,7 +5,8 @@ export const RECEIVE_ITEMS  = "column/receive_items"
 export const SET_NAME       = "column/set_name"
 export const ADD_COLUMN     = "column/add_column"
 export const DELETE_COLUMN  = "column/delete_column"
-export const DELETE_ITEM = "column_item/check_notification"
+export const DELETE_ITEM    = "column_item/check_notification"
+export const SHOW_MODAL     = "markdown/show_modal"
 
 const requestItems = (url) => {
   return {
@@ -93,5 +94,12 @@ export const checkNotification = (url, item_key, item_thread_url) => {
       url: url,
       item_key: item_key
     })
+  }
+}
+
+export const showModal = (src) => {
+  return {
+    type: SHOW_MODAL,
+    src: src,
   }
 }

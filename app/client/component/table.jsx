@@ -20,6 +20,7 @@ export default class Table extends React.Component {
         deleteColumn={this.props.deleteColumn}
         updateColumn={this.props.updateColumn}
         checkNotification={this.props.checkNotification}
+        showModal={this.props.showModal}
       />
     })
     return(
