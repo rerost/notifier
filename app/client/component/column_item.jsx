@@ -8,9 +8,9 @@ import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'mat
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import FlatButton from 'material-ui/FlatButton';
+import ActionGrade from 'material-ui/svg-icons/action/grade';
 
 const remote = require('electron').remote
 const { openUrl } = remote.require('./index.js')
@@ -42,16 +42,18 @@ export default class ColumnItem extends React.Component {
     return(
       <Card>
         <CardHeader
-          title={"@" + this.props.item.user_login}
+          title={this.props.item.user_login}
           avatar={this.props.item.avatar_url}
         />
         <CardText>
           <Markdown text={this.props.item.content} />
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center"}}>
-          <FlatButton label="Fav" />
+          <IconButton>
+            <ActionGrade />
+          </IconButton>
           <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+            iconButtonElement={<IconButton><NavigationExpandMoreIcon /></IconButton>}
           >
             <MenuItem primaryText="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
           </IconMenu>
