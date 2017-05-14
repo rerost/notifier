@@ -5,6 +5,7 @@ export const RECEIVE_ITEMS  = "column/receive_items"
 export const SET_NAME       = "column/set_name"
 export const ADD_COLUMN     = "column/add_column"
 export const DELETE_COLUMN  = "column/delete_column"
+export const CHECK_NOTIFICATION = "column_item/check_notification"
 
 const requestItems = (url) => {
   return {
@@ -55,7 +56,7 @@ export const addColumn = (url, update_at) => {
     )
     const token = localStorage.getItem("githubToken")
     if (token) {
-      (new Github(localStorage.getItem(token))).getUrl(url)
+      (new Github(token)).getUrl(url)
         .then(({title}) => dispatch(setName(url, title)))
     }
     dispatch(fetchItems(url))
@@ -78,5 +79,19 @@ export const updateColumn = (url, update_at) => {
     else {
       dispatch(fetchItems(url, {since: Github.convertToGithubTime(update_at)}))
     }
+  }
+}
+
+export const checkNotification = (url, item_key, item_thread_url) => {
+  return dispatch => {
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      (new Github(token)).checkNotification(item_thread_url)
+    }
+    dispatch({
+      type: CHECK_NOTIFICATION,
+      url: url,
+      item_key: item_key
+    })
   }
 }

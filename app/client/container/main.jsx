@@ -30,6 +30,9 @@ const mapDispatchToProps = (dispatch) => {
     updateColumn: (url, update_at) => {
       dispatch(columnActions.updateColumn(url, update_at))
     },
+    checkNotification: (url, item_key, item_thread_url) => {
+      dispatch(columnActions.checkNotification(url, item_key, item_thread_url))
+    }
   }
 }
 
@@ -46,6 +49,7 @@ class Main extends React.Component {
           addColumn={this.props.addColumn}
           deleteColumn={this.props.deleteColumn}
           updateColumn={this.props.updateColumn}
+          checkNotification={this.props.checkNotification}
         />
       </div>
     );

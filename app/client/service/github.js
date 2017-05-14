@@ -85,6 +85,7 @@ export default class Github {
                     url:           body.issue_url ? body.issue_url : body.url,
                     html_url:      body.html_url,
                     avatar_url:    body.user.avatar_url,
+                    thread_url:    notification.url
                   }
                   res(item)
                 })
@@ -142,5 +143,11 @@ export default class Github {
           })
         })
     }
+  }
+
+  checkNotification(thread_url) {
+    this.client.post(thread_url, {}, (err, status, body, headers) => {
+      console.log({err, status, body, headers})
+    })
   }
 }

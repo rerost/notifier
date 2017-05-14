@@ -26,7 +26,7 @@ export default class ColumnItem extends React.Component {
           <IconMenu
             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
           >
-            <MenuItem primaryText="Mark as Read" />
+            <MenuItem primaryText="Mark as Read" onClick={(e) => this.props.checkNotification(this.props.url, this.props.item.key, this.props.item.thread_url)}/>
           </IconMenu>
         }
         onClick={() => this.props.addColumn(this.props.item.url)}
