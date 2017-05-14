@@ -50,7 +50,7 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <FlatButton label="Open in Browser" />
+          <FlatButton label="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
         </CardActions>
       </Card>
     );
