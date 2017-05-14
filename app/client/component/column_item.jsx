@@ -9,6 +9,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import FlatButton from 'material-ui/FlatButton';
 
 const remote = require('electron').remote
@@ -28,7 +29,7 @@ export default class ColumnItem extends React.Component {
           <IconMenu
             iconButtonElement={
               <IconButton onClick={(e) => e.stopPropagation()}>
-                <MoreVertIcon />
+                <NavigationExpandMoreIcon />
               </IconButton>
             }
           >
