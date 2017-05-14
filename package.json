@@ -49,6 +49,7 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.3",
+    "showdown": "^1.6.4",
     "style-loader": "^0.17.0",
     "twitter": "^1.7.0"
   }

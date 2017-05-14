@@ -14,6 +14,8 @@ import FlatButton from 'material-ui/FlatButton';
 const remote = require('electron').remote
 const { openUrl } = remote.require('./index.js')
 
+import Markdown from './markdown'
+
 export default class ColumnItem extends React.Component {
   render() {
     const avatar = <Avatar src={this.props.item.avatar_url} />
@@ -43,7 +45,7 @@ export default class ColumnItem extends React.Component {
           avatar={this.props.item.avatar_url}
         />
         <CardText>
-          {this.props.item.content}
+          <Markdown text={this.props.item.content} />
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center"}}>
           <FlatButton label="Fav" />
