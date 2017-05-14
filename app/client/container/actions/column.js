@@ -5,7 +5,7 @@ export const RECEIVE_ITEMS  = "column/receive_items"
 export const SET_NAME       = "column/set_name"
 export const ADD_COLUMN     = "column/add_column"
 export const DELETE_COLUMN  = "column/delete_column"
-export const CHECK_NOTIFICATION = "column_item/check_notification"
+export const DELETE_ITEM = "column_item/check_notification"
 
 const requestItems = (url) => {
   return {
@@ -89,7 +89,7 @@ export const checkNotification = (url, item_key, item_thread_url) => {
       (new Github(token)).checkNotification(item_thread_url)
     }
     dispatch({
-      type: CHECK_NOTIFICATION,
+      type: DELETE_ITEM,
       url: url,
       item_key: item_key
     })
