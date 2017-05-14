@@ -15,7 +15,6 @@ function createWindow() {
   size = electron.screen.getPrimaryDisplay().workAreaSize
   win = new BrowserWindow({width: size.width, height: size.height});
   win.loadURL(`file://${__dirname}/index.html`);
-  win.webContents.openDevTools();
 
   win.webContents.on('new-window', (event, url) => {
     event.preventDefault();
@@ -48,8 +47,8 @@ server.get('/oauth/callback/github', (req, res) => {
   res.send("authorized!!")
 });
 
-server.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+server.listen(30000, function () {
+  console.log('Example app listening on port 30000!');
 });
 
 
