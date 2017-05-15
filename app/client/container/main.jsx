@@ -4,6 +4,9 @@ import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
 import Modal from 'react-modal'
 
+import IconButton from 'material-ui/IconButton';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
 import Table from '../component/table.jsx'
 
 import configureStore from './stores/main.js'
@@ -74,6 +77,37 @@ const modalStyle = {
   }
 }
 
+const modalOauthStyle = {
+  overlay : {
+    position          : 'fixed',
+    display           : 'flex',
+    alignItems        : 'center',
+    justifyContent    : 'center',
+    top               : 0,
+    left              : 0,
+    right             : 0,
+    bottom            : 0,
+    backgroundColor   : 'rgba(0, 0, 0, 0.4)',
+    zIndex           : 10000,
+  },
+  content : {
+    position                   : 'absolute',
+    width                      : '50%',
+    height                     : '50%',
+    top                        : 'auto',
+    left                       : 'auto',
+    right                      : 'auto',
+    bottom                     : 'auto',
+    background                 : '#fff',
+    overflow                   : 'none',
+    WebkitOverflowScrolling    : 'touch',
+    outline                    : 'none',
+    padding                    : '20px',
+    border                     : 'none',
+    background                 : "rgba(255, 255, 255, 1)",
+  }
+}
+
 class Main extends React.Component {
   constructor(props) {
     super(props)
@@ -81,24 +115,36 @@ class Main extends React.Component {
   }
   render() {
     return(
-      <div>
-        <Table
-          columns={this.props.columns}
-          addColumn={this.props.addColumn}
-          deleteColumn={this.props.deleteColumn}
-          updateColumn={this.props.updateColumn}
-          checkNotification={this.props.checkNotification}
-          showModal={this.props.showModal}
-        />
-        <Modal
-          isOpen={this.props.modal.isOpen}
-          contentLabel="test"
-          onRequestClose={this.props.hideModal}
-          style={modalStyle}
-        >
-          <img onClick={(e) => e.stopPropagation()} src={this.props.modal.src} style={{height: "100%", width: "auto"}}/>
-        </Modal>
-      </div>
+      <MuiThemeProvider>
+        <div>
+          <Table
+            columns={this.props.columns}
+            addColumn={this.props.addColumn}
+            deleteColumn={this.props.deleteColumn}
+            updateColumn={this.props.updateColumn}
+            checkNotification={this.props.checkNotification}
+            showModal={this.props.showModal}
+          />
+          <Modal
+            isOpen={this.props.modal.isOpen}
+            contentLabel="Image Modal"
+            onRequestClose={this.props.hideModal}
+            style={modalStyle}
+          >
+            <img onClick={(e) => e.stopPropagation()} src={this.props.modal.src} style={{height: "100%", width: "auto"}}/>
+          </Modal>
+          <Modal
+            isOpen={true}
+            contentLabel="OAuth Modal"
+            style={modalOauthStyle}
+          >
+            <h1>Please OAuth</h1>
+            <div>
+              hogehoge
+            </div>
+          </Modal>
+        </div>
+      </MuiThemeProvider>
     );
   }
 }
