@@ -15,9 +15,6 @@ injectTapEventPlugin();
 import ColumnItem from './column_item.jsx'
 import ColumnSettingButton from './column_setting_button.jsx'
 
-const remote = require('electron').remote
-const { openUrl } = remote.require('./index.js')
-
 import styles from './column.scss'
 
 const progress_style = {
@@ -40,7 +37,7 @@ class Column extends React.Component {
           body: item.content
         });
         n.onclick = () => {
-          openUrl(item.html_url)
+          window.open(item.html_url)
         }
       })
     }

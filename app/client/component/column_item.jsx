@@ -12,9 +12,6 @@ import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-mo
 import FlatButton from 'material-ui/FlatButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 
-const remote = require('electron').remote
-const { openUrl } = remote.require('./index.js')
-
 import Markdown from './markdown'
 
 export default class ColumnItem extends React.Component {
@@ -50,7 +47,7 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <FlatButton label="Open in Browser" onClick={() => openUrl(this.props.item.html_url)}/>
+          <FlatButton label="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>
       </Card>
     );

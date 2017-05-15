@@ -4,7 +4,7 @@ const { BrowserWindow } = electron
 const express = require('express')
 const server = express();
 const fetch = require('node-fetch')
-require('dotenv').config({ path: __dirname + '/../.env' })
+require('dotenv').config({ path: __dirname + '/.env' })
 
 const { GithubOauth, parseParam } = require('./lib/oauth.js')
 
@@ -50,8 +50,3 @@ server.get('/oauth/callback/github', (req, res) => {
 server.listen(30000, function () {
   console.log('Example app listening on port 30000!');
 });
-
-
-exports.openUrl = (url) => {
-  shell.openExternal(url)
-}
