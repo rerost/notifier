@@ -9,6 +9,12 @@
     <div id="main"></div>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
-    <script src="./build/app.js"></script>
+    <script>
+      const params = window.location.search.slice(1).split('&')
+        .map((param) => {const [key, value] = param.split('='); return {[key]: value}})
+        .reduce((acc, next) => Object.assign({}, acc, next))
+      localStorage.setItem(params.host + "Token", params.access_token)
+      window.close()
+    </script>
   </body>
 </html>

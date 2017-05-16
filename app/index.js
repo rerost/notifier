@@ -26,6 +26,17 @@ function createWindow() {
   });
 }
 
+function createOauthWindow(oauthKey) {
+  let oauthWin = new BrowserWindow({width: 400, height: 400});
+  oauthWin.loadURL(`file://${__dirname}/oauth.html?host=github&access_token=${oauthKey}`);
+
+  oauthWin.on('closed', () => {
+    oauthWin = null;
+  });
+
+  return oauthWin
+}
+
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
@@ -43,7 +54,7 @@ app.on('activate', () => {
 server.get('/oauth/callback/github', (req, res) => {
   GithubOauth.requestAccessToken(req.query.code)
   .then((response) => response.text())
-  .then((text) => win.webContents.executeJavaScript(`localStorage.setItem(\'githubToken\', \'${parseParam(text).access_token}\')`)) //JSが実行されるので色々問題がある。このような表記はしたくない
+  .then((text) => createOauthWindow(parseParam(text).access_token).access_token)
   res.send("authorized!!")
 });
 
