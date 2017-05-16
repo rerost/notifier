@@ -1,13 +1,15 @@
 import Github from '../../service/github.js'
 
-export const REQUEST_ITEMS  = "column/request_items"
-export const RECEIVE_ITEMS  = "column/receive_items"
-export const SET_NAME       = "column/set_name"
-export const ADD_COLUMN     = "column/add_column"
-export const DELETE_COLUMN  = "column/delete_column"
-export const DELETE_ITEM    = "column_item/check_notification"
-export const SHOW_MODAL     = "markdown/show_modal"
-export const HIDE_MODAL     = "main/hide_modal"
+export const REQUEST_ITEMS    = "column/request_items"
+export const RECEIVE_ITEMS    = "column/receive_items"
+export const SET_NAME         = "column/set_name"
+export const ADD_COLUMN       = "column/add_column"
+export const DELETE_COLUMN    = "column/delete_column"
+export const DELETE_ITEM      = "column_item/check_notification"
+export const SHOW_MODAL       = "markdown/show_modal"
+export const HIDE_MODAL       = "main/hide_modal"
+export const SHOW_OAUTH_MODAL = "main/show_oauth_modal"
+export const HIDE_OAUTH_MODAL = "main/hide_oauth_modal"
 
 const requestItems = (url) => {
   return {
@@ -109,5 +111,17 @@ export const hideModal = (src) => {
   return {
     type: HIDE_MODAL,
     src: src,
+  }
+}
+
+export const showOauthModal = () => {
+  return {
+    type: SHOW_OAUTH_MODAL,
+  }
+}
+
+export const hideOauthModal = () => {
+  return {
+    type: HIDE_OAUTH_MODAL,
   }
 }

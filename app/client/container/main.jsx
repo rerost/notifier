@@ -44,7 +44,13 @@ const mapDispatchToProps = (dispatch) => {
     },
     hideModal: () => {
       dispatch(columnActions.hideModal())
-    }
+    },
+    showOauthModal: () => {
+      dispatch(columnActions.showOauthModal())
+    },
+    hideOauthModal: () => {
+      dispatch(columnActions.hideOauthModal())
+    },
   }
 }
 
@@ -135,8 +141,9 @@ class Main extends React.Component {
             <img onClick={(e) => e.stopPropagation()} src={this.props.modal.src} style={{height: "100%", width: "auto"}}/>
           </Modal>
           <Modal
-            isOpen={true}
+            isOpen={this.props.modal.isOpenOauthModal}
             contentLabel="OAuth Modal"
+            onRequestClose={this.props.hideOauthModal}
             style={modalOauthStyle}
           >
             <div style={{display: "flex", flexFlow: "column nowrap", alignItems: "center",}}>
