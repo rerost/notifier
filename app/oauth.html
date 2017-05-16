@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./index.css">
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+  </head>
+  <body>
+    <div id="main"></div>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+    <script>
+      const params = window.location.search.slice(1).split('&')
+        .map((param) => {const [key, value] = param.split('='); return {[key]: value}})
+        .reduce((acc, next) => Object.assign({}, acc, next))
+      localStorage.setItem(params.host + "Token", params.access_token)
+      window.close()
+    </script>
+  </body>
+</html>

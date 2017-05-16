@@ -120,6 +120,16 @@ class Main extends React.Component {
     super(props)
     this.props.columns.get("keys").map((url) => this.props.load(url))
   }
+  componentDidMount() {
+    if (true /*localStorage.getItem("githubToken") == null*/) {
+      this.props.showOauthModal()
+    }
+    window.addEventListener('storage', (e) => {
+      if(e.key == "githubToken" && e.newValue != null) {
+        this.props.hideOauthModal()
+      }
+    })
+  }
   render() {
     return(
       <MuiThemeProvider>
@@ -149,7 +159,11 @@ class Main extends React.Component {
             <div style={{display: "flex", flexFlow: "column nowrap", alignItems: "center",}}>
               <h1>Please OAuth</h1>
               <div>
-                <IconButton iconClassName="muidocs-icon-custom-github" style={{width: 180, height: 180, padding: 30}} iconStyle={{fontSize: 120}}/>
+                <IconButton iconClassName="muidocs-icon-custom-github"
+                  style={{width: 180, height: 180, padding: 30}}
+                  iconStyle={{fontSize: 120}}
+                  onClick={() => window.open(GithubOauth.requestAccessUrl())}
+                />
               </div>
             </div>
           </Modal>
@@ -166,10 +180,6 @@ const MainConnected = connect(
   mapStateToProps,
   mapDispatchToProps
 )(Main)
-
-if (localStorage.getItem("githubToken") == null) {
-  window.open(GithubOauth.requestAccessUrl())
-}
 
 ReactDOM.render(
   <Provider store={store}>
