@@ -5,6 +5,7 @@ import { createStore } from 'redux'
 import Modal from 'react-modal'
 
 import IconButton from 'material-ui/IconButton';
+import FontIcon from 'material-ui/FontIcon';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Table from '../component/table.jsx'
@@ -138,9 +139,11 @@ class Main extends React.Component {
             contentLabel="OAuth Modal"
             style={modalOauthStyle}
           >
-            <h1>Please OAuth</h1>
-            <div>
-              hogehoge
+            <div style={{display: "flex", flexFlow: "column nowrap", alignItems: "center",}}>
+              <h1>Please OAuth</h1>
+              <div>
+                <IconButton iconClassName="muidocs-icon-custom-github" style={{width: 180, height: 180, padding: 30}} iconStyle={{fontSize: 120}}/>
+              </div>
             </div>
           </Modal>
         </div>
@@ -148,6 +151,7 @@ class Main extends React.Component {
     );
   }
 }
+//iconClassName="muidocs-icon-custom-github"
 
 const store = configureStore()
 
