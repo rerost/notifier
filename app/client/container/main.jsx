@@ -121,7 +121,7 @@ class Main extends React.Component {
     this.props.columns.get("keys").map((url) => this.props.load(url))
   }
   componentDidMount() {
-    if (true /*localStorage.getItem("githubToken") == null*/) {
+    if (localStorage.getItem("githubToken") == null) {
       this.props.showOauthModal()
     }
     window.addEventListener('storage', (e) => {
@@ -172,7 +172,6 @@ class Main extends React.Component {
     );
   }
 }
-//iconClassName="muidocs-icon-custom-github"
 
 const store = configureStore()
 

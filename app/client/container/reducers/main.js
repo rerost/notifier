@@ -87,7 +87,7 @@ const columnReducer = (state = initialState, action) => {
   }
 }
 
-const modalReducer = (state = {isOpen: false, isOpenOauthModal: true}, action) => {
+const modalReducer = (state = {isOpen: false, isOpenOauthModal: false}, action) => {
   switch (action.type) {
     case columnActions.SHOW_MODAL:
       return {
