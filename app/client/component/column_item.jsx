@@ -21,7 +21,7 @@ export default class ColumnItem extends React.Component {
       const truncated_context = this.props.item.content.substring(0, 24) + ((this.props.item.content.length > 24) ? "..." : "") //FIXME think japanese
       return (<ListItem
         leftAvatar={avatar}
-        primaryText={truncated_context}
+        primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{truncated_context}</div>}
         rightIconButton={
           <IconMenu
             iconButtonElement={
