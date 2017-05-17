@@ -80,7 +80,7 @@ export default class Column extends React.Component {
       <div style={style.base}>
           <AppBar
             title={this.props.name}
-            iconElementRight={this.props.isMainColumn ? null :
+            iconElementLeft={this.props.isMainColumn ? null :
               <ColumnSettingButton
                 muiName='IconMenu'
                 deleteColumn={() => this.props.deleteColumn(this.props.url)}
