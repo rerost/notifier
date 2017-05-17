@@ -57,7 +57,7 @@ class Column extends React.Component {
             }
           />
         <div styleName="body">
-          <List >
+          <List style={{padding: "6px"}}>
             {this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>) }
           </List>
           {(() => {

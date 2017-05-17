@@ -37,7 +37,7 @@ export default class ColumnItem extends React.Component {
       />)
     }
     return(
-      <Card>
+      <Card style={{marginTop: "5px", marginBottom: "5px"}}>
         <CardHeader
           title={this.props.item.user_login}
           subtitle={this.props.item.user_name}
