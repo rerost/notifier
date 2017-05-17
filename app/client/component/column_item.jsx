@@ -19,12 +19,11 @@ export default class ColumnItem extends React.Component {
   render() {
     const avatar = <Avatar src={this.props.item.avatar_url} />
     if(this.props.isMainColumn) {
-      const truncated_context = this.props.item.content.substring(0, 24) + ((this.props.item.content.length > 24) ? "..." : "") //FIXME think japanese
       return (
         <Paper style={{marginTop: "5px", marginBottom: "5px"}}>
           <ListItem
             leftAvatar={avatar}
-            primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{truncated_context}</div>}
+            primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{this.props.item.content}</div>}
             rightIconButton={
               <IconMenu
                 iconButtonElement={
