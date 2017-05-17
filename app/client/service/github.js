@@ -86,25 +86,48 @@ export default class Github {
             Promise.all(body.map((notification) => {
               return new Promise((res, rej) => {
                 //コメントがなくてissueだけたった場合latest_comment_urlがそのままissueのurlになる
-                this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
-                  const item = {
-                    timestamp:     this.constructor.convertToDate(body.updated_at),
-                    key:           body.issue_url, //only one notification one issue
-                    id:            body.id,
-                    user_id:       body.user.id,
-                    content_id:    notification.id,
-                    user_login:    body.user.login,
-                    user_name:     this.constructor.convertToReadableDate(body.created_at),
-                    content:       body.body,
-                    reply_user:    2,
-                    reply_content: 1,
-                    url:           body.issue_url ? body.issue_url : body.url,
-                    html_url:      body.html_url,
-                    avatar_url:    body.user.avatar_url,
-                    thread_url:    notification.url
-                  }
-                  res(item)
-                })
+                if(notification.subject.latest_comment_url == null) {
+                  this.client.get(notification.subject.url, {}, (err, status, body, headers) => {
+                    const item = {
+                      timestamp:     this.constructor.convertToDate(body.updated_at),
+                      key:           body.issue_url, //only one notification one issue
+                      id:            body.id,
+                      user_id:       body.user.id,
+                      content_id:    notification.id,
+                      user_login:    body.user.login,
+                      user_name:     this.constructor.convertToReadableDate(body.created_at),
+                      content:       body.body,
+                      reply_user:    2,
+                      reply_content: 1,
+                      url:           body.issue_url ? body.issue_url : body.url,
+                      html_url:      body.html_url,
+                      avatar_url:    body.user.avatar_url,
+                      thread_url:    notification.url
+                    }
+                    res(item)
+                  })
+                }
+                else {
+                  this.client.get(notification.subject.latest_comment_url, {}, (err, status, body, headers) => {
+                    const item = {
+                      timestamp:     this.constructor.convertToDate(body.updated_at),
+                      key:           body.issue_url, //only one notification one issue
+                      id:            body.id,
+                      user_id:       body.user.id,
+                      content_id:    notification.id,
+                      user_login:    body.user.login,
+                      user_name:     this.constructor.convertToReadableDate(body.created_at),
+                      content:       body.body,
+                      reply_user:    2,
+                      reply_content: 1,
+                      url:           body.issue_url ? body.issue_url : body.url,
+                      html_url:      body.html_url,
+                      avatar_url:    body.user.avatar_url,
+                      thread_url:    notification.url
+                    }
+                    res(item)
+                  })
+                }
               })
             })).then((items) => resolve({items}))
           })

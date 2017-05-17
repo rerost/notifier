@@ -10,6 +10,7 @@ export default class Markdown extends React.Component {
     const html = converter.makeHtml(this.props.text)
     return (
       <div
+        style={{whiteSpace: "normal"}}
         dangerouslySetInnerHTML={{__html: html}}
         onClick={(e) => {
           //FIXME 画像かどうかの判定にsrcがあるかどうかで判断してしまっている

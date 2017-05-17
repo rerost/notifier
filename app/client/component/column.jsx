@@ -14,14 +14,45 @@ injectTapEventPlugin();
 import ColumnItem from './column_item.jsx'
 import ColumnSettingButton from './column_setting_button.jsx'
 
-import styles from './column.scss'
-
 const progress_style = {
   display: "block",
   margin:  "auto"
 }
 
-class Column extends React.Component {
+const style = {
+  base: {
+    display: "inline-block",
+    marginRight: "10px",
+    marginLeft:  "10px",
+    height: "100vh",
+    width: "300px",
+  },
+
+  head: {
+    height: "50px",
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: "#ddd",
+    name: {
+      width: "80%",
+      paddingRight: "20px",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+      fontSize: "40px",
+    },
+    closeButton: {
+      width: "10%",
+      cursor: "pointer",
+    },
+  },
+
+  body: {
+    height: "100%",
+    overflow: "scroll",
+  },
+}
+
+export default class Column extends React.Component {
   update() {
     this.props.updateColumn(this.props.url, this.props.updateAt)
   }
@@ -46,18 +77,18 @@ class Column extends React.Component {
   }
   render() {
     return(
-      <div styleName="base">
+      <div style={style.base}>
           <AppBar
             title={this.props.name}
-            iconElementRight={this.props.isMainColumn ? null :
+            iconElementLeft={this.props.isMainColumn ? null :
               <ColumnSettingButton
                 muiName='IconMenu'
                 deleteColumn={() => this.props.deleteColumn(this.props.url)}
               />
             }
           />
-        <div styleName="body">
-          <List >
+        <div style={style.body}>
+          <List style={{padding: "6px"}}>
             {this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>) }
           </List>
           {(() => {
@@ -73,5 +104,3 @@ class Column extends React.Component {
     );
   }
 }
-
-export default CSSModules(Column, styles)
