@@ -11,6 +11,7 @@ import IconButton from 'material-ui/IconButton';
 import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-more';
 import FlatButton from 'material-ui/FlatButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
+import Paper from 'material-ui/Paper';
 
 import Markdown from './markdown.jsx'
 
@@ -19,22 +20,26 @@ export default class ColumnItem extends React.Component {
     const avatar = <Avatar src={this.props.item.avatar_url} />
     if(this.props.isMainColumn) {
       const truncated_context = this.props.item.content.substring(0, 24) + ((this.props.item.content.length > 24) ? "..." : "") //FIXME think japanese
-      return (<ListItem
-        leftAvatar={avatar}
-        primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{truncated_context}</div>}
-        rightIconButton={
-          <IconMenu
-            iconButtonElement={
-              <IconButton onClick={(e) => e.stopPropagation()}>
-                <NavigationExpandMoreIcon />
-              </IconButton>
+      return (
+        <Paper style={{marginTop: "5px", marginBottom: "5px"}}>
+          <ListItem
+            leftAvatar={avatar}
+            primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{truncated_context}</div>}
+            rightIconButton={
+              <IconMenu
+                iconButtonElement={
+                  <IconButton onClick={(e) => e.stopPropagation()}>
+                    <NavigationExpandMoreIcon />
+                  </IconButton>
+                }
+              >
+                <MenuItem primaryText="Mark as Read" onClick={(e) => this.props.checkNotification(this.props.columnUrl, this.props.item.key, this.props.item.thread_url)}/>
+              </IconMenu>
             }
-          >
-            <MenuItem primaryText="Mark as Read" onClick={(e) => this.props.checkNotification(this.props.columnUrl, this.props.item.key, this.props.item.thread_url)}/>
-          </IconMenu>
-        }
-        onClick={() => this.props.addColumn(this.props.item.url)}
-      />)
+            onClick={() => this.props.addColumn(this.props.item.url)}
+          />
+        </Paper>
+      )
     }
     return(
       <Card style={{marginTop: "5px", marginBottom: "5px"}}>
