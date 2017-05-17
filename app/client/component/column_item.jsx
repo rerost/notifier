@@ -12,7 +12,7 @@ import NavigationExpandMoreIcon from 'material-ui/svg-icons/navigation/expand-mo
 import FlatButton from 'material-ui/FlatButton';
 import ActionGrade from 'material-ui/svg-icons/action/grade';
 
-import Markdown from './markdown'
+import Markdown from './markdown.jsx'
 
 export default class ColumnItem extends React.Component {
   render() {
