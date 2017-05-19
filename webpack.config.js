@@ -47,7 +47,7 @@ var config = {
   },
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    './app/client/container/main.jsx'
+    './app/client/container/main_container.js'
   ],
   output: opt,
   resolve: {
