@@ -78,15 +78,15 @@ export default class Column extends React.Component {
   render() {
     return(
       <div style={style.base}>
-          <AppBar
-            title={this.props.name}
-            iconElementLeft={this.props.isMainColumn ? null :
-              <ColumnSettingButton
-                muiName='IconMenu'
-                deleteColumn={() => this.props.deleteColumn(this.props.url)}
-              />
-            }
-          />
+        <AppBar
+          title={this.props.name}
+          iconElementLeft={this.props.isMainColumn ? null :
+            <ColumnSettingButton
+              muiName='IconMenu'
+              deleteColumn={() => this.props.deleteColumn(this.props.url)}
+            />
+          }
+        />
         <div style={style.body}>
           <List style={{padding: "6px"}}>
             {this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>) }
