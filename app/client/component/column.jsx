@@ -89,16 +89,19 @@ export default class Column extends React.Component {
         />
         <div style={style.body}>
           <List style={{padding: "6px"}}>
-            {this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>) }
+            {(() => {
+              if (this.props.isFetching)
+                return (
+                  <div>
+                    <CircularProgress style={progress_style} size={40} thickness={5} />
+                  </div>
+                )
+              else
+                return (
+                  this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>)
+                )
+            })()}
           </List>
-          {(() => {
-            if (this.props.items.length == 0) //FIXME use isFetching
-              return (
-                <div>
-                  <CircularProgress style={progress_style} size={40} thickness={5} />
-                </div>
-              )
-          })()}
         </div>
       </div>
     );
