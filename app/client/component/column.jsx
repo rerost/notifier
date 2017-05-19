@@ -96,6 +96,12 @@ export default class Column extends React.Component {
                     <CircularProgress style={progress_style} size={40} thickness={5} />
                   </div>
                 )
+              else if (this.props.items.length == 0)
+                return (
+                  <div>
+                    No description provided
+                  </div>
+                )
               else
                 return (
                   this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>)
