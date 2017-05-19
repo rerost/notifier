@@ -87,6 +87,7 @@ export default class Main extends React.Component {
     window.addEventListener('storage', (e) => {
       if(e.key == "githubToken" && e.newValue != null) {
         this.props.hideOauthModal()
+        this.props.columns.get("keys").map(url => this.props.load(url))
       }
     })
   }
