@@ -2,6 +2,10 @@ img {
   width: 100%;
 }
 
+pre {
+  overflow: auto;
+}
+
 /* see https://github.com/callemall/material-ui/blob/master/docs/src/www/css/font-icons/style.css */
 @font-face {
 	font-family: 'material-ui-icons';
