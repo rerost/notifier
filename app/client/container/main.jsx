@@ -68,8 +68,10 @@ const modalStyle = {
     zIndex           : 10000,
   },
   content : {
+    display                    : 'flex',
+    maxHeight                  : '80%',
+    maxWidth                   : '80%',
     position                   : 'absolute',
-    height                     : '80%',
     top                        : 'auto',
     left                       : 'auto',
     right                      : 'auto',
@@ -80,7 +82,7 @@ const modalStyle = {
     outline                    : 'none',
     padding                    : '20px',
     border                     : 'none',
-    background                 : "none",
+    backgroundColor            : 'rgba(0, 0, 0, 0.9)',
   }
 }
 
@@ -98,6 +100,9 @@ const modalOauthStyle = {
     zIndex           : 10000,
   },
   content : {
+    display                    : 'flex',
+    justifyContent             : 'center',
+    alignItems                 : 'center',
     position                   : 'absolute',
     width                      : '50%',
     height                     : '50%',
@@ -148,7 +153,7 @@ class Main extends React.Component {
             onRequestClose={this.props.hideModal}
             style={modalStyle}
           >
-            <img onClick={(e) => e.stopPropagation()} src={this.props.modal.src} style={{height: "100%", width: "auto"}}/>
+            <img onClick={(e) => e.stopPropagation()} src={this.props.modal.src}/>
           </Modal>
           <Modal
             isOpen={this.props.modal.isOpenOauthModal}
