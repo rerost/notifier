@@ -23,7 +23,7 @@ export default class ColumnItem extends React.Component {
         <Paper style={{marginTop: "5px", marginBottom: "5px"}}>
           <ListItem
             leftAvatar={avatar}
-            primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{this.props.item.content}</div>}
+            primaryText={<div style={{overflow: "hidden", textOverflow: "ellipsis"}}>{this.props.item.content ? this.props.item.content : "EMPTY"}</div>}
             rightIconButton={
               <IconMenu
                 iconButtonElement={
