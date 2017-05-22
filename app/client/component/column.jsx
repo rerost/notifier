@@ -90,7 +90,7 @@ export default class Column extends React.Component {
         <div style={style.body}>
           <List style={{padding: "6px"}}>
             {(() => {
-              if (this.props.isFetching)
+              if (this.props.isFetching && this.props.items.length == 0)
                 return (
                   <div>
                     <CircularProgress style={progress_style} size={40} thickness={5} />
