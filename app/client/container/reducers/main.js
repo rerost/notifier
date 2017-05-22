@@ -84,18 +84,19 @@ const columnReducer = (state = initialState, action) => {
       )
     case columnActions.RECEIVED_REACTION:
       return state.update(
-        actions.url,
-        (value => value.update({items: value.get("items").map((item) => {
-          if (item.key == actions.item_key) {
-            if (item.reactions) {
-              item.reactions = {}
+        action.url,
+        (value => { console.log(value); return value.update({items: value.get("items").map((item) => {
+          if (item.key == action.item_key) {
+            if (!item.reactions) {
+              item.reactions = []
             }
-            Object.assign({}, item, {reactions: [...item.reactions, action.reaction]})
+            console.log(Object.assign({}, item, {reactions: [...item.reactions, action.reaction]}))
+            return Object.assign({}, item, {reactions: [...item.reactions, action.reaction]})
           }
           else {
-            item
+            return item
           }
-        })}))
+        })}) } )
       )
     default:
       return state

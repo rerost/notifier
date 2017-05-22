@@ -101,6 +101,7 @@ export default class Main extends React.Component {
           updateColumn={this.props.updateColumn}
           checkNotification={this.props.checkNotification}
           showModal={this.props.showModal}
+          sendReaction={this.props.sendReaction}
         />
         <Modal
           isOpen={this.props.modal.isOpen}

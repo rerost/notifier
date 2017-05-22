@@ -105,9 +105,12 @@ export const checkNotification = (url, item_key, item_thread_url) => {
 //reaction <- {"+1", "-1", "laugh", "confused", "heart", "hooray"}
 export const sendReaction = (url, key, comment_url, reaction) => {
   return dispatch => {
-    (new Github(token))
-    .sendReaction(comment_url, reaction)
-    .then(() => {dispatch(receivedReaction(url, key, reaction))}, () => {})
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      (new Github(token))
+      .sendReaction(comment_url, reaction)
+      .then(() => {dispatch(receivedReaction(url, key, reaction))}, () => {})
+    }
   }
 }
 

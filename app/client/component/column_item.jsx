@@ -15,6 +15,13 @@ import Paper from 'material-ui/Paper';
 
 import Markdown from './markdown.jsx'
 
+const imgStyle = {
+  cursor: "pointer",
+  width: "15px",
+  height: "15px",
+  opacity: 0.4,
+}
+
 export default class ColumnItem extends React.Component {
   render() {
     const avatar = <Avatar src={this.props.item.avatar_url} />
@@ -52,7 +59,13 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <FlatButton label="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "+1")}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "-1")}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "laugh")}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "hooray")}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "confused")}/>
+          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"  style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "heart")}/>
+          <IconButton iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>
       </Card>
     );

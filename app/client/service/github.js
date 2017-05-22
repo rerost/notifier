@@ -12,6 +12,7 @@ const convert = (item) => {
 export default class Github {
   constructor(token) {
     this.client = github.client(token);
+    this.token = token
   }
 
   getUrlType(url) {
@@ -69,14 +70,15 @@ export default class Github {
 
   // /repos/:owner/:repo/issues/:number/reactions
   sendReaction(url, content) {
-    return new Promise ((resolve, reject) => {
-      this.client.post(url, {}, (err, status, body, headers) => {
-        if (err) {
-          console.log(err)
-        }
-        resolve(body)
-      })
+    const header = new Headers({
+      authorization: "token " + this.token,
+      Accept: "application/vnd.github.squirrel-girl-preview",
+      'Content-Type': 'application/json',
     })
+    const data = new FormData();
+    data.append( "json", JSON.stringify({"content": content}));
+
+    return fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})}).then((res) => console.log(res))
   }
 
   // url = "https://.."
@@ -161,6 +163,7 @@ export default class Github {
                   reply_user:    2,
                   reply_content: 1,
                   url:           url,
+                  comment_url:   item.url,
                   avatar_url:    item.user.avatar_url,
                   html_url:      item.html_url,
                   isEdited:      false, //FIXME(@rerost)
@@ -179,6 +182,7 @@ export default class Github {
                 reply_user:    2,
                 reply_content: 1,
                 url:           url,
+                comment_url:   url,
                 html_url:      issue.html_url,
                 avatar_url:    issue.user.avatar_url,
                 isEdited:      false, //FIXME(@rerost)

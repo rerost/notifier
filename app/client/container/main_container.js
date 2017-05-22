@@ -45,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
     hideOauthModal: () => {
       dispatch(columnActions.hideOauthModal())
     },
+    sendReaction: (url, key, comment_url, reaction) => {
+      dispatch(columnActions.sendReaction(url, key, comment_url, reaction))
+    }
   }
 }
 
