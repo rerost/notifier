@@ -33,6 +33,7 @@ export default class ColumnItem extends React.Component {
                 }
               >
                 <MenuItem primaryText="Mark as Read" onClick={(e) => this.props.checkNotification(this.props.columnUrl, this.props.item.key, this.props.item.thread_url)}/>
+                <MenuItem primaryText="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
               </IconMenu>
             }
             onClick={() => this.props.addColumn(this.props.item.url)}
