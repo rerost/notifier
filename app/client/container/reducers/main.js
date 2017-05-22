@@ -82,6 +82,21 @@ const columnReducer = (state = initialState, action) => {
         action.url,
         (value => value.delete_item(action.item_key))
       )
+    case columnActions.RECEIVED_REACTION:
+      return state.update(
+        actions.url,
+        (value => value.update({items: value.get("items").map((item) => {
+          if (item.key == actions.item_key) {
+            if (item.reactions) {
+              item.reactions = {}
+            }
+            Object.assign({}, item, {reactions: [...item.reactions, action.reaction]})
+          }
+          else {
+            item
+          }
+        })}))
+      )
     default:
       return state
   }

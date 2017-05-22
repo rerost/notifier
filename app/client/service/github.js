@@ -67,6 +67,18 @@ export default class Github {
     return `${year}-${month}-${date_} ${hour}:${minute}`
   }
 
+  // /repos/:owner/:repo/issues/:number/reactions
+  sendReaction(url, content) {
+    return new Promise ((resolve, reject) => {
+      this.client.post(url, {}, (err, status, body, headers) => {
+        if (err) {
+          console.log(err)
+        }
+        resolve(body)
+      })
+    })
+  }
+
   // url = "https://.."
   // options = {all: true, since: "2017-04-29T18:27:46Z", ...}
   getUrl(url, options = {}) {
