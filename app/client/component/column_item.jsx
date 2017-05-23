@@ -14,7 +14,7 @@ import ActionGrade from 'material-ui/svg-icons/action/grade';
 import Paper from 'material-ui/Paper';
 
 import Markdown from './markdown.jsx'
-import { ReactionButton } from './reaction_buttons.jsx'
+import ReactionButtons from './reaction_buttons.jsx'
 
 const imgStyle = {
   cursor: "pointer",
@@ -63,13 +63,18 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <ReactionButton content="+1" count={0} sendReaction={sendReaction}/>
-          <ReactionButton content="-1" count={0} sendReaction={sendReaction}/>
-          <ReactionButton content="laugh" count={0} sendReaction={sendReaction}/>
-          <ReactionButton content="hooray" count={0} sendReaction={sendReaction}/>
-          <ReactionButton content="confused" count={0} sendReaction={sendReaction}/>
-          <ReactionButton content="heart" count={0} sendReaction={sendReaction}/>
-          <IconButton iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
+          <ReactionButtons
+            reactions={[
+              {content: "+1",       count: 0, dissable: true},
+              {content: "-1",       count: 0, dissable: true},
+              {content: "laugh",    count: 0, dissable: true},
+              {content: "hooray",   count: 0, dissable: true},
+              {content: "confused", count: 0, dissable: true},
+              {content: "heart",    count: 0, dissable: false},
+            ]}
+            sendReaction={sendReaction}
+          />
+          <IconButton style={{marginRight: 0, marginLeft: "auto"}} iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>
       </Card>
     );
