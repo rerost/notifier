@@ -14,6 +14,7 @@ import ActionGrade from 'material-ui/svg-icons/action/grade';
 import Paper from 'material-ui/Paper';
 
 import Markdown from './markdown.jsx'
+import { ReactionButton } from './reaction_buttons.jsx'
 
 const imgStyle = {
   cursor: "pointer",
@@ -48,6 +49,9 @@ export default class ColumnItem extends React.Component {
         </Paper>
       )
     }
+    const sendReaction = (content) => {
+      this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, content)
+    }
     return(
       <Card style={{marginTop: "5px", marginBottom: "5px"}}>
         <CardHeader
@@ -59,12 +63,12 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44d.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "+1")}/>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f44e.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "-1")}/>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f604.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "laugh")}/>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f389.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "hooray")}/>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f615.png" style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "confused")}/>
-          <img src="https://assets-cdn.github.com/images/icons/emoji/unicode/2764.png"  style={imgStyle} onClick={(e) => this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, "heart")}/>
+          <ReactionButton content="+1" count={0} sendReaction={sendReaction}/>
+          <ReactionButton content="-1" count={0} sendReaction={sendReaction}/>
+          <ReactionButton content="laugh" count={0} sendReaction={sendReaction}/>
+          <ReactionButton content="hooray" count={0} sendReaction={sendReaction}/>
+          <ReactionButton content="confused" count={0} sendReaction={sendReaction}/>
+          <ReactionButton content="heart" count={0} sendReaction={sendReaction}/>
           <IconButton iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>
       </Card>
