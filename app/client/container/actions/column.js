@@ -109,7 +109,8 @@ export const sendReaction = (url, key, comment_url, reaction) => {
     if (token) {
       (new Github(token))
       .sendReaction(comment_url, reaction)
-      .then(() => {dispatch(receivedReaction(url, key, reaction))}, () => {})
+      .then((res) => res.json())
+      .then((json) => {dispatch(receivedReaction(url, key, {content: json.content, user_id: json.user.id}))}, () => {})
     }
   }
 }

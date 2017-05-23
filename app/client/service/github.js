@@ -75,10 +75,22 @@ export default class Github {
       Accept: "application/vnd.github.squirrel-girl-preview",
       'Content-Type': 'application/json',
     })
-    const data = new FormData();
-    data.append( "json", JSON.stringify({"content": content}));
 
-    return fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})}).then((res) => console.log(res))
+    return fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})})
+  }
+
+  getReactions(url) {
+    const header = new Headers({
+      authorization: "token " + this.token,
+      Accept: "application/vnd.github.squirrel-girl-preview",
+      'Content-Type': 'application/json',
+    })
+
+    return fetch(url + `/reactions`, {headers: header})
+  }
+
+  getMe() {
+    return fetch("https://api.github.com/user", {headers: authorization: "token " + this.token})
   }
 
   // url = "https://.."
