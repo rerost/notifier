@@ -1,15 +1,18 @@
 import Github from '../../service/github.js'
 
-export const REQUEST_ITEMS    = "column/request_items"
-export const RECEIVE_ITEMS    = "column/receive_items"
-export const SET_NAME         = "column/set_name"
-export const ADD_COLUMN       = "column/add_column"
-export const DELETE_COLUMN    = "column/delete_column"
-export const DELETE_ITEM      = "column_item/check_notification"
-export const SHOW_MODAL       = "markdown/show_modal"
-export const HIDE_MODAL       = "main/hide_modal"
-export const SHOW_OAUTH_MODAL = "main/show_oauth_modal"
-export const HIDE_OAUTH_MODAL = "main/hide_oauth_modal"
+export const REQUEST_ITEMS      = "column/request_items"
+export const RECEIVE_ITEMS      = "column/receive_items"
+export const SET_NAME           = "column/set_name"
+export const ADD_COLUMN         = "column/add_column"
+export const DELETE_COLUMN      = "column/delete_column"
+export const DELETE_ITEM        = "column/check_notification"
+export const SHOW_MODAL         = "markdown/show_modal"
+export const HIDE_MODAL         = "main/hide_modal"
+export const SHOW_OAUTH_MODAL   = "main/show_oauth_modal"
+export const HIDE_OAUTH_MODAL   = "main/hide_oauth_modal"
+export const RECEIVED_REACTION  = "column_item/received_reaction"
+export const RECEIVED_REACTIONS = "column_item/received_reactions"
+export const RECEIVED_USER_ID   = "main/receive_user_id"
 
 const requestItems = (url) => {
   return {
@@ -97,6 +100,56 @@ export const checkNotification = (url, item_key, item_thread_url) => {
       url: url,
       item_key: item_key
     })
+  }
+}
+
+//comment_url = /repos/:owner/:repo/issues/:number/reactions
+//reaction <- {"+1", "-1", "laugh", "confused", "heart", "hooray"}
+export const sendReaction = (url, key, comment_url, reaction) => {
+  return dispatch => {
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      (new Github(token))
+      .sendReaction(comment_url, reaction)
+      .then((res) => res.json())
+      .then((json) => {dispatch(receivedReaction(url, key, {content: json.content, user_id: json.user.id}))}, () => {})
+    }
+  }
+}
+
+export const getReactions = (url, key, comment_url) => {
+  return dispatch => {
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      const client = (new Github(token))
+      client.getMe().then(res => res.json()).then(user => dispatch(receiveUserId(user.id)));
+      client.getReactions(comment_url).then((reactions) => {dispatch(receivedReactions(url, key, reactions))}, () => {});
+    }
+  }
+}
+
+const receivedReaction = (url, item_key, reaction) => {
+  return {
+    type: RECEIVED_REACTION,
+    url,
+    item_key,
+    reaction,
+  }
+}
+
+const receivedReactions = (url, item_key, reactions) => {
+  return {
+    type: RECEIVED_REACTIONS,
+    url,
+    item_key,
+    reactions,
+  }
+}
+
+export const receiveUserId = (user_id) => {
+  return {
+    type: RECEIVED_USER_ID,
+    user_id,
   }
 }
 

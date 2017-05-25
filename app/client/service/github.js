@@ -12,6 +12,7 @@ const convert = (item) => {
 export default class Github {
   constructor(token) {
     this.client = github.client(token);
+    this.token = token
   }
 
   getUrlType(url) {
@@ -65,6 +66,37 @@ export default class Github {
     const hour   = padding(date.getHours(),     "0", 2)
     const minute = padding(date.getMinutes(),   "0", 2)
     return `${year}-${month}-${date_} ${hour}:${minute}`
+  }
+
+  // /repos/:owner/:repo/issues/:number/reactions
+  sendReaction(url, content) {
+    const header = new Headers({
+      authorization: "token " + this.token,
+      Accept: "application/vnd.github.squirrel-girl-preview",
+      'Content-Type': 'application/json',
+    })
+
+    return fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})})
+  }
+
+  getReactions(url) {
+    const header = new Headers({
+      authorization: "token " + this.token,
+      Accept: "application/vnd.github.squirrel-girl-preview",
+      'Content-Type': 'application/json',
+    })
+
+    //{content, user_id}
+    return new Promise((resolve, reject) => {
+      fetch(url + `/reactions`, {headers: header})
+      .then(res => res.json())
+      .then(json => json.map(reactions => {return {content: reactions.content, user_id: reactions.user.id}}))
+      .then(resolve)
+    })
+  }
+
+  getMe() {
+    return fetch("https://api.github.com/user", {headers: {authorization: "token " + this.token}})
   }
 
   // url = "https://.."
@@ -149,6 +181,7 @@ export default class Github {
                   reply_user:    2,
                   reply_content: 1,
                   url:           url,
+                  comment_url:   item.url,
                   avatar_url:    item.user.avatar_url,
                   html_url:      item.html_url,
                   isEdited:      false, //FIXME(@rerost)
@@ -167,6 +200,7 @@ export default class Github {
                 reply_user:    2,
                 reply_content: 1,
                 url:           url,
+                comment_url:   url,
                 html_url:      issue.html_url,
                 avatar_url:    issue.user.avatar_url,
                 isEdited:      false, //FIXME(@rerost)

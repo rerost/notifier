@@ -95,12 +95,15 @@ export default class Main extends React.Component {
     return(
       <div>
         <Table
+          main={this.props.main}
           columns={this.props.columns}
           addColumn={this.props.addColumn}
           deleteColumn={this.props.deleteColumn}
           updateColumn={this.props.updateColumn}
           checkNotification={this.props.checkNotification}
           showModal={this.props.showModal}
+          sendReaction={this.props.sendReaction}
+          getReactions={this.props.getReactions}
         />
         <Modal
           isOpen={this.props.modal.isOpen}

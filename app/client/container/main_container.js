@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
   return {
     columns: state.columnReducer,
     modal: state.modalReducer,
+    main: state.mainReducer,
   }
 }
 
@@ -44,6 +45,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     hideOauthModal: () => {
       dispatch(columnActions.hideOauthModal())
+    },
+    sendReaction: (url, key, comment_url, reaction) => {
+      dispatch(columnActions.sendReaction(url, key, comment_url, reaction))
+    },
+    getReactions: (url, key, comment_url) => {
+      dispatch(columnActions.getReactions(url, key, comment_url))
     },
   }
 }

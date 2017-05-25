@@ -14,6 +14,14 @@ import ActionGrade from 'material-ui/svg-icons/action/grade';
 import Paper from 'material-ui/Paper';
 
 import Markdown from './markdown.jsx'
+import ReactionButtons from './reaction_buttons.jsx'
+
+const imgStyle = {
+  cursor: "pointer",
+  width: "15px",
+  height: "15px",
+  opacity: 0.4,
+}
 
 export default class ColumnItem extends React.Component {
   render() {
@@ -41,6 +49,9 @@ export default class ColumnItem extends React.Component {
         </Paper>
       )
     }
+    const sendReaction = (content) => {
+      this.props.sendReaction(this.props.columnUrl, this.props.item.key, this.props.item.comment_url, content)
+    }
     return(
       <Card style={{marginTop: "5px", marginBottom: "5px"}}>
         <CardHeader
@@ -52,7 +63,13 @@ export default class ColumnItem extends React.Component {
           <Markdown text={this.props.item.content} showModal={this.props.showModal}/>
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
-          <FlatButton label="Open in Browser" onClick={() => window.open(this.props.item.html_url)}/>
+          <ReactionButtons
+            my_user_id={this.props.main.user_id}
+            reactions={this.props.item.reactions}
+            sendReaction={sendReaction}
+            getReactions={() => this.props.getReactions(this.props.columnUrl, this.props.item.key, this.props.item.comment_url)}
+          />
+          <IconButton style={{marginRight: 0, marginLeft: "auto"}} iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>
       </Card>
     );

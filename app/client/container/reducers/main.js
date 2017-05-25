@@ -4,6 +4,15 @@ import { Map } from 'immutable';
 import * as columnActions from '../actions/column.js'
 import Column from '../models/column.js'
 
+const mainReducer = (state = {}, action) => {
+  switch (action.type) {
+    case columnActions.RECEIVED_USER_ID:
+      return Object.assign({}, state, {user_id: action.user_id})
+    default:
+      return state
+  }
+}
+
 // State::[<URL, Column>]
 
 const initialState = Map({
@@ -26,7 +35,7 @@ const columnReducer = (state = initialState, action) => {
         }))
       );
     case columnActions.RECEIVE_ITEMS:
-      const new_items = [
+      var new_items = [
         ...state.get(action.url).get("items").filter(item => !(action.items.map(item => item.key).includes(item.key))),
         ...action.items
       ].sort((item1, item2) => {
@@ -34,6 +43,17 @@ const columnReducer = (state = initialState, action) => {
         const timestamp2 = item2.timestamp
 
         return timestamp2 - timestamp1 // [5/1,5/2] => [5/2, 5/1]
+      })
+      new_items = new_items.map(item => {
+        item.reactions = {
+          "+1":       {user_ids: []},
+          "-1":       {user_ids: []},
+          "laugh":    {user_ids: []},
+          "hooray":   {user_ids: []},
+          "confused": {user_ids: []},
+          "heart":    {user_ids: []},
+        }
+        return item
       })
       return state.update(
         action.url,
@@ -82,6 +102,40 @@ const columnReducer = (state = initialState, action) => {
         action.url,
         (value => value.delete_item(action.item_key))
       )
+    case columnActions.RECEIVED_REACTION:
+      return state.update(
+        action.url,
+        (value => { return value.update({items: value.get("items").map((item) => {
+          if (item.key == action.item_key) {
+            if (!item.reactions) {
+              item.reactions = []
+            }
+            return Object.assign({}, item, {reactions: [...item.reactions, action.reaction]})
+          }
+          else {
+            return item
+          }
+        })}) } )
+      )
+    case columnActions.RECEIVED_REACTIONS:
+      return state.update(
+        action.url,
+        (value => value.update({items: value.get("items").map((item) => {
+          if (item.key == action.item_key) {
+            const merged_reactions= item.reactions
+            action.reactions.forEach((reaction) => {
+              merged_reactions[reaction.content] = {
+                user_ids: [...merged_reactions[reaction.content].user_ids, reaction.user_id],
+                dissable: true,
+              }
+            })
+            return Object.assign({}, item, {reactions: merged_reactions})
+          }
+          else {
+            return item
+          }
+        })}))
+      )
     default:
       return state
   }
@@ -112,6 +166,7 @@ const modalReducer = (state = {isOpen: false, isOpenOauthModal: false}, action) 
 }
 
 export const reducer = combineReducers({
+  mainReducer,
   columnReducer,
   modalReducer,
 })

@@ -104,7 +104,22 @@ export default class Column extends React.Component {
                 )
               else
                 return (
-                  this.props.items.map((item) => <ColumnItem key={item.key} item={item} columnUrl={this.props.url} isMainColumn={this.props.isMainColumn} addColumn={this.props.addColumn} checkNotification={this.props.checkNotification} showModal={this.props.showModal}/>)
+                  this.props.items.map((item) => {
+                    return (
+                      <ColumnItem
+                        key={item.key}
+                        item={item}
+                        main={this.props.main}
+                        columnUrl={this.props.url}
+                        isMainColumn={this.props.isMainColumn}
+                        addColumn={this.props.addColumn}
+                        checkNotification={this.props.checkNotification}
+                        showModal={this.props.showModal}
+                        sendReaction={this.props.sendReaction}
+                        getReactions={this.props.getReactions}
+                      />
+                    )
+                  })
                 )
             })()}
           </List>

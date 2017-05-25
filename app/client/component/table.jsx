@@ -12,6 +12,7 @@ export default class Table extends React.Component {
       return <Column
         key={url}
         url={url}
+        main={this.props.main}
         name={this.props.columns.get(url).get("name")}
         items={this.props.columns.get(url).get("items")}
         isMainColumn={this.props.columns.get(url).get("isMainColumn")}
@@ -22,6 +23,8 @@ export default class Table extends React.Component {
         updateColumn={this.props.updateColumn}
         checkNotification={this.props.checkNotification}
         showModal={this.props.showModal}
+        sendReaction={this.props.sendReaction}
+        getReactions={this.props.getReactions}
       />
     })
     return(
