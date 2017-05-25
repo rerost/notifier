@@ -26,7 +26,7 @@ const columnReducer = (state = initialState, action) => {
         }))
       );
     case columnActions.RECEIVE_ITEMS:
-      const new_items = [
+      var new_items = [
         ...state.get(action.url).get("items").filter(item => !(action.items.map(item => item.key).includes(item.key))),
         ...action.items
       ].sort((item1, item2) => {
@@ -34,6 +34,17 @@ const columnReducer = (state = initialState, action) => {
         const timestamp2 = item2.timestamp
 
         return timestamp2 - timestamp1 // [5/1,5/2] => [5/2, 5/1]
+      })
+      new_items = new_items.map(item => {
+        item.reactions = {
+          "+1":       {user_ids: [], dissable: true},
+          "-1":       {user_ids: [], dissable: true},
+          "laugh":    {user_ids: [], dissable: true},
+          "hooray":   {user_ids: [], dissable: true},
+          "confused": {user_ids: [], dissable: true},
+          "heart":    {user_ids: [], dissable: true},
+        }
+        return item
       })
       return state.update(
         action.url,
@@ -97,6 +108,27 @@ const columnReducer = (state = initialState, action) => {
             return item
           }
         })}) } )
+      )
+    case columnActions.RECEIVED_REACTIONS:
+      return state.update(
+        action.url,
+        (value => value.update({items: value.get("items").map((item) => {
+          if (item.key == action.item_key) {
+            if (!item.reactions) {
+            }
+            merged_reactions= item.reactions
+            action.reactions.each((reaction) => {
+              merged_reactions[reaction.content] = {
+                user_ids: [...merged_reactions[reaction.content].user_ids, reaction.user_id],
+                dissable: true,
+              }
+            })
+            return Object.assign({}, item, {reactions: merged_reactions})
+          }
+          else {
+            return item
+          }
+        })}))
       )
     default:
       return state

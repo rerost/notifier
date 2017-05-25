@@ -1,16 +1,17 @@
 import Github from '../../service/github.js'
 
-export const REQUEST_ITEMS    = "column/request_items"
-export const RECEIVE_ITEMS    = "column/receive_items"
-export const SET_NAME         = "column/set_name"
-export const ADD_COLUMN       = "column/add_column"
-export const DELETE_COLUMN    = "column/delete_column"
-export const DELETE_ITEM      = "column/check_notification"
-export const SHOW_MODAL       = "markdown/show_modal"
-export const HIDE_MODAL       = "main/hide_modal"
-export const SHOW_OAUTH_MODAL = "main/show_oauth_modal"
-export const HIDE_OAUTH_MODAL = "main/hide_oauth_modal"
-export const RECEIVED_REACTION = "column_item/received_reaction"
+export const REQUEST_ITEMS      = "column/request_items"
+export const RECEIVE_ITEMS      = "column/receive_items"
+export const SET_NAME           = "column/set_name"
+export const ADD_COLUMN         = "column/add_column"
+export const DELETE_COLUMN      = "column/delete_column"
+export const DELETE_ITEM        = "column/check_notification"
+export const SHOW_MODAL         = "markdown/show_modal"
+export const HIDE_MODAL         = "main/hide_modal"
+export const SHOW_OAUTH_MODAL   = "main/show_oauth_modal"
+export const HIDE_OAUTH_MODAL   = "main/hide_oauth_modal"
+export const RECEIVED_REACTION  = "column_item/received_reaction"
+export const RECEIVED_REACTIONS = "column_item/received_reactions"
 
 const requestItems = (url) => {
   return {
@@ -115,12 +116,32 @@ export const sendReaction = (url, key, comment_url, reaction) => {
   }
 }
 
+export const getReactions = (url, key, comment_url) => {
+  return dispatch => {
+    const token = localStorage.getItem("githubToken")
+    if (token) {
+      (new Github(token))
+      .getReactions(comment_url)
+      .then((reactions) => {dispatch(receivedReactions(url, key, reactions))}, () => {})
+    }
+  }
+}
+
 const receivedReaction = (url, item_key, reaction) => {
   return {
     type: RECEIVED_REACTION,
     url,
     item_key,
     reaction,
+  }
+}
+
+const receiveReactions = (url, item_key, reactions) => {
+  return {
+    type: RECEIVED_REACTIONS,
+    url,
+    item_key,
+    reactions,
   }
 }
 

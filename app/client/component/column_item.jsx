@@ -64,15 +64,9 @@ export default class ColumnItem extends React.Component {
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
           <ReactionButtons
-            reactions={[
-              {content: "+1",       count: 0, dissable: true},
-              {content: "-1",       count: 0, dissable: true},
-              {content: "laugh",    count: 0, dissable: true},
-              {content: "hooray",   count: 0, dissable: true},
-              {content: "confused", count: 0, dissable: true},
-              {content: "heart",    count: 0, dissable: false},
-            ]}
+            reactions={this.props.item.reactions}
             sendReaction={sendReaction}
+            getReactions={() => this.props.getReactions(this.props.columnUrl, this.props.item.key, this.props.item.comment_url)}
           />
           <IconButton style={{marginRight: 0, marginLeft: "auto"}} iconClassName="muidocs-icon-custom-github" onClick={() => window.open(this.props.item.html_url)}/>
         </CardActions>

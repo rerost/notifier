@@ -47,7 +47,10 @@ const mapDispatchToProps = (dispatch) => {
     },
     sendReaction: (url, key, comment_url, reaction) => {
       dispatch(columnActions.sendReaction(url, key, comment_url, reaction))
-    }
+    },
+    getReactions: (url, key, comment_url) => {
+      dispatch(columnActions.getReactions(url, key, comment_url))
+    },
   }
 }
 

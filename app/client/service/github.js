@@ -86,11 +86,17 @@ export default class Github {
       'Content-Type': 'application/json',
     })
 
-    return fetch(url + `/reactions`, {headers: header})
+    //{content, user_id}
+    return new Promise((resolve, reject) => {
+      fetch(url + `/reactions`, {headers: header})
+      .then(res => res.json())
+      .then(json => json.map(reactions => {return {content: reactions.content, user_id: reactions.user.id}}))
+      .then(resolve)
+    })
   }
 
   getMe() {
-    return fetch("https://api.github.com/user", {headers: authorization: "token " + this.token})
+    return fetch("https://api.github.com/user", {headers: {authorization: "token " + this.token}})
   }
 
   // url = "https://.."

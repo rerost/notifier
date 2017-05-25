@@ -23,6 +23,7 @@ export default class Table extends React.Component {
         checkNotification={this.props.checkNotification}
         showModal={this.props.showModal}
         sendReaction={this.props.sendReaction}
+        getReactions={this.props.getReactions}
       />
     })
     return(

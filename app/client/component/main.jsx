@@ -102,6 +102,7 @@ export default class Main extends React.Component {
           checkNotification={this.props.checkNotification}
           showModal={this.props.showModal}
           sendReaction={this.props.sendReaction}
+          getReactions={this.props.getReactions}
         />
         <Modal
           isOpen={this.props.modal.isOpen}
