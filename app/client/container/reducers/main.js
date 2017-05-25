@@ -4,6 +4,15 @@ import { Map } from 'immutable';
 import * as columnActions from '../actions/column.js'
 import Column from '../models/column.js'
 
+const mainReducer = (state = {}, action) => {
+  switch (action.type) {
+    case columnActions.RECEIVED_USER_ID:
+      return Object.assign({}, state, {user_id: action.user_id})
+    default:
+      return state
+  }
+}
+
 // State::[<URL, Column>]
 
 const initialState = Map({
@@ -37,12 +46,12 @@ const columnReducer = (state = initialState, action) => {
       })
       new_items = new_items.map(item => {
         item.reactions = {
-          "+1":       {user_ids: [], dissable: true},
-          "-1":       {user_ids: [], dissable: true},
-          "laugh":    {user_ids: [], dissable: true},
-          "hooray":   {user_ids: [], dissable: true},
-          "confused": {user_ids: [], dissable: true},
-          "heart":    {user_ids: [], dissable: true},
+          "+1":       {user_ids: []},
+          "-1":       {user_ids: []},
+          "laugh":    {user_ids: []},
+          "hooray":   {user_ids: []},
+          "confused": {user_ids: []},
+          "heart":    {user_ids: []},
         }
         return item
       })
@@ -96,12 +105,11 @@ const columnReducer = (state = initialState, action) => {
     case columnActions.RECEIVED_REACTION:
       return state.update(
         action.url,
-        (value => { console.log(value); return value.update({items: value.get("items").map((item) => {
+        (value => { return value.update({items: value.get("items").map((item) => {
           if (item.key == action.item_key) {
             if (!item.reactions) {
               item.reactions = []
             }
-            console.log(Object.assign({}, item, {reactions: [...item.reactions, action.reaction]}))
             return Object.assign({}, item, {reactions: [...item.reactions, action.reaction]})
           }
           else {
@@ -114,10 +122,8 @@ const columnReducer = (state = initialState, action) => {
         action.url,
         (value => value.update({items: value.get("items").map((item) => {
           if (item.key == action.item_key) {
-            if (!item.reactions) {
-            }
-            merged_reactions= item.reactions
-            action.reactions.each((reaction) => {
+            const merged_reactions= item.reactions
+            action.reactions.forEach((reaction) => {
               merged_reactions[reaction.content] = {
                 user_ids: [...merged_reactions[reaction.content].user_ids, reaction.user_id],
                 dissable: true,
@@ -160,6 +166,7 @@ const modalReducer = (state = {isOpen: false, isOpenOauthModal: false}, action) 
 }
 
 export const reducer = combineReducers({
+  mainReducer,
   columnReducer,
   modalReducer,
 })

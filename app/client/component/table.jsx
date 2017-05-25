@@ -12,6 +12,7 @@ export default class Table extends React.Component {
       return <Column
         key={url}
         url={url}
+        main={this.props.main}
         name={this.props.columns.get(url).get("name")}
         items={this.props.columns.get(url).get("items")}
         isMainColumn={this.props.columns.get(url).get("isMainColumn")}

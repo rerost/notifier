@@ -95,6 +95,7 @@ export default class Main extends React.Component {
     return(
       <div>
         <Table
+          main={this.props.main}
           columns={this.props.columns}
           addColumn={this.props.addColumn}
           deleteColumn={this.props.deleteColumn}

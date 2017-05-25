@@ -64,6 +64,7 @@ export default class ColumnItem extends React.Component {
         </CardText>
         <CardActions style={{display: "flex", alignItems: "center", justifyContent: "right"}}>
           <ReactionButtons
+            my_user_id={this.props.main.user_id}
             reactions={this.props.item.reactions}
             sendReaction={sendReaction}
             getReactions={() => this.props.getReactions(this.props.columnUrl, this.props.item.key, this.props.item.comment_url)}

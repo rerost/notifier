@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
   return {
     columns: state.columnReducer,
     modal: state.modalReducer,
+    main: state.mainReducer,
   }
 }
 

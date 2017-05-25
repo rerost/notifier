@@ -12,6 +12,7 @@ const contents = {
 
 export default class ReactionButtons extends React.Component {
   componentDidMount() {
+    this.props.getReactions()
     this.setInterval = setInterval(this.props.getReactions.bind(this), 60 * 1000)
   }
   componentWillUnmount() {
@@ -24,7 +25,7 @@ export default class ReactionButtons extends React.Component {
         {
           Object.keys(reactions).map(key => {
             reactions[key]
-            return <ReactionButton content={key} user_ids={reactions[key].user_ids} dissable={true} sendReaction={this.props.sendReaction} />
+            return <ReactionButton content={key} user_ids={reactions[key].user_ids} my_user_id={this.props.my_user_id} sendReaction={this.props.sendReaction} />
           })
         }
       </div>
@@ -33,19 +34,31 @@ export default class ReactionButtons extends React.Component {
 }
 
 export class ReactionButton extends React.Component {
-  imgStyle(dissable) {
+  imgStyle() {
     return {
       cursor: "pointer",
       width: "20px",
       height: "20px",
+    }
+  }
+
+  style(dissable) {
+    return {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "5px",
       opacity: dissable ? 0.4 : 1.0,
     }
   }
 
   render() {
     return (
-      <div style={{padding: "5px"}} onClick={() => this.props.sendReaction(this.props.content)}>
-        <img src={contents[this.props.content]} style={this.imgStyle(this.props.dissable)} />
+      <div style={this.style(!(!!this.props.my_user_id && this.props.user_ids.includes(this.props.my_user_id)))} onClick={() => this.props.sendReaction(this.props.content)}>
+        <img src={contents[this.props.content]} style={this.imgStyle()} />
+        {
+          (this.props.user_ids && this.props.user_ids.length != 0) ? <div>{this.props.user_ids.length}</div> : null
+        }
       </div>
     )
   }

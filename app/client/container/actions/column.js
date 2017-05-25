@@ -12,6 +12,7 @@ export const SHOW_OAUTH_MODAL   = "main/show_oauth_modal"
 export const HIDE_OAUTH_MODAL   = "main/hide_oauth_modal"
 export const RECEIVED_REACTION  = "column_item/received_reaction"
 export const RECEIVED_REACTIONS = "column_item/received_reactions"
+export const RECEIVED_USER_ID   = "main/receive_user_id"
 
 const requestItems = (url) => {
   return {
@@ -120,9 +121,9 @@ export const getReactions = (url, key, comment_url) => {
   return dispatch => {
     const token = localStorage.getItem("githubToken")
     if (token) {
-      (new Github(token))
-      .getReactions(comment_url)
-      .then((reactions) => {dispatch(receivedReactions(url, key, reactions))}, () => {})
+      const client = (new Github(token))
+      client.getMe().then(res => res.json()).then(user => dispatch(receiveUserId(user.id)));
+      client.getReactions(comment_url).then((reactions) => {dispatch(receivedReactions(url, key, reactions))}, () => {});
     }
   }
 }
@@ -136,12 +137,19 @@ const receivedReaction = (url, item_key, reaction) => {
   }
 }
 
-const receiveReactions = (url, item_key, reactions) => {
+const receivedReactions = (url, item_key, reactions) => {
   return {
     type: RECEIVED_REACTIONS,
     url,
     item_key,
     reactions,
+  }
+}
+
+export const receiveUserId = (user_id) => {
+  return {
+    type: RECEIVED_USER_ID,
+    user_id,
   }
 }
 

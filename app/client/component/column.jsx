@@ -109,6 +109,7 @@ export default class Column extends React.Component {
                       <ColumnItem
                         key={item.key}
                         item={item}
+                        main={this.props.main}
                         columnUrl={this.props.url}
                         isMainColumn={this.props.isMainColumn}
                         addColumn={this.props.addColumn}
