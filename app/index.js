@@ -13,7 +13,7 @@ let win;
 
 function createWindow() {
   size = electron.screen.getPrimaryDisplay().workAreaSize
-  win = new BrowserWindow({width: size.width, height: size.height});
+  win = new BrowserWindow({titleBarStyle: 'hidden', width: size.width, height: size.height});
   win.loadURL(`file://${__dirname}/index.html`);
 
   win.webContents.on('new-window', (event, url) => {
