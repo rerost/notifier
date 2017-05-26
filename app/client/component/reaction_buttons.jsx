@@ -36,7 +36,6 @@ export default class ReactionButtons extends React.Component {
 export class ReactionButton extends React.Component {
   imgStyle() {
     return {
-      cursor: "pointer",
       width: "20px",
       height: "20px",
     }
@@ -49,6 +48,7 @@ export class ReactionButton extends React.Component {
       justifyContent: "center",
       padding: "5px",
       opacity: dissable ? 0.4 : 1.0,
+      cursor: "pointer",
     }
   }
 

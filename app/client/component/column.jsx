@@ -47,7 +47,7 @@ const style = {
   },
 
   body: {
-    height: "100%",
+    height: "90%",
     overflow: "scroll",
   },
 }
