@@ -76,7 +76,12 @@ export default class Github {
       'Content-Type': 'application/json',
     })
 
-    return fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})})
+    return new Promise((resolve, reject) => {
+      fetch(url + `/reactions`, {headers: header, method: 'POST', body: JSON.stringify({"content": content})})
+      .then(res => res.json())
+      .then(json => {return {content: json.content, user_id: json.user.id}})
+      .then(resolve)
+    })
   }
 
   getReactions(url) {
