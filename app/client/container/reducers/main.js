@@ -124,9 +124,11 @@ const columnReducer = (state = initialState, action) => {
           if (item.key == action.item_key) {
             const merged_reactions= item.reactions
             action.reactions.forEach((reaction) => {
-              merged_reactions[reaction.content] = {
-                user_ids: [...merged_reactions[reaction.content].user_ids, reaction.user_id],
-                dissable: true,
+              if (!merged_reactions[reaction.content].user_ids.includes(reaction.user_id)) {
+                merged_reactions[reaction.content] = {
+                  user_ids: [...merged_reactions[reaction.content].user_ids, reaction.user_id],
+                  dissable: true,
+                }
               }
             })
             return Object.assign({}, item, {reactions: merged_reactions})
