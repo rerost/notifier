@@ -127,8 +127,11 @@ export default class Main extends React.Component {
                 iconStyle={{fontSize: 120}}
                 onClick={() => {
                   OAuth.initialize('FuVF5YnLXj2OcaMy0uRbh6hC4T4');
-                  OAuth.redirect('github', 'https://rerost.github.io/notifier/app/index.html');
-                }}
+                  OAuth.popup('github').done(function(result) {
+                    console.log(result)
+                    // do some stuff with result
+                  })}
+                }
               />
             </div>
           </div>
