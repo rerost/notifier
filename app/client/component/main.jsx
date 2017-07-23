@@ -127,10 +127,8 @@ export default class Main extends React.Component {
                 iconStyle={{fontSize: 120}}
                 onClick={() => {
                   OAuth.initialize('FuVF5YnLXj2OcaMy0uRbh6hC4T4');
-                  console.log("asd")
                   OAuth.popup('github').done(function(result) {
-                    console.log(result)
-                    // do some stuff with result
+                    localStorage.setItem(result.provider + "Token", result.access_token)
                   })}
                 }
               />
