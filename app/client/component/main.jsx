@@ -128,9 +128,9 @@ export default class Main extends React.Component {
                 onClick={() => {
                   OAuth.initialize('FuVF5YnLXj2OcaMy0uRbh6hC4T4');
                   OAuth.popup('github').done(function(result) {
-                    console.log(result)
                     localStorage.setItem(result.provider + "Token", result.access_token)
-                  }).fail(function(err) {console.log(err)})
+                    window.location.reload()
+                  })
                 }}
               />
             </div>
