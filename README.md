@@ -1,5 +1,8 @@
 # notifier
-Notifier for webservice(github, qiita, twitter...)
+Notifier for webservice(github, ~~qiita~~, ~~twitter~~...)
+
+for browser
+https://rerost.github.io/notifier/app/
 
 use http://www.gakusmemo.com/?p=366
 
